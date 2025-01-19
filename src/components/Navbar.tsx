@@ -31,7 +31,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 backdrop-blur-md ${
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 backdrop-blur-md shadow-sm ${
         isScrolled ? " backdrop-blur-md shadow-md" : "bg-transparent"
       }`}
     >
@@ -42,7 +42,7 @@ export default function Navbar() {
             className={`text-2xl font-bold ${
               isScrolled
                 ? "text-yellow-300 hover:text-zaffre-900 "
-                : "text-grape-900 hover:text-yellow-300"
+                : "text-yellow-300 hover:text-zaffre-900"
             }`}
           >
             StrongFreeCode
@@ -52,7 +52,7 @@ export default function Navbar() {
               <Link
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className={` text-grape-900 hover:text-zaffre-900 hover:border-b transition-opacity duration-300 ${
+                className={` text-yellow-300 hover:text-zaffre-900 hover:border-b transition-opacity duration-300 ${
                   isScrolled
                     ? " hover:border-zaffre-100 hover:animate-pulse"
                     : "hover:border-zaffre-900 hover:animate-pulse"
