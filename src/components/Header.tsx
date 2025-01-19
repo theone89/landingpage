@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <header
       id="inicio"
-      className=" text-white py-20 px-4  text-center mt-16 z-[10] relative h-screen"
+      className=" text-white py-32 px-4  text-center mt-16 z-[10] relative h-screen"
     >
       <h1 className="text-4xl md:text-6xl font-bold mb-4">
         Bienvenidos a{" "}
@@ -16,12 +16,12 @@ export default function Header() {
       <p className="text-xl md:text-2xl mb-8">
         Solucion IT al alcance de tus manos
       </p>
-      <p className="mb-8 text-xs md:text-md">
+      <p className="mb-24 text-xs md:text-md">
         <MessageHeader />
       </p>
       <Link
         href="#contacto"
-        className="bg-white text-grape-300 px-6 py-3 rounded-full text-lg font-semibold hover:bg-grape-100 hover:text-grape-900 transition duration-300"
+        className="bg-white  text-grape-300 px-6 py-3 rounded-full text-lg font-semibold hover:bg-grape-100 hover:text-grape-900 transition duration-300"
       >
         ¡Contáctanos Ahora!
       </Link>

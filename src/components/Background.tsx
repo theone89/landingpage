@@ -55,7 +55,7 @@ const Background = () => {
         },
         modes: {
           push: {
-            quantity: 4,
+            quantity: 1,
           },
           repulse: {
             distance: 200,

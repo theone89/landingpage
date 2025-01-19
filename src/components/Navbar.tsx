@@ -62,18 +62,18 @@ export default function Navbar() {
               </Link>
             ))}
           </div>
-          <button className="md:hidden text-gray-800" onClick={toggleMenu}>
+          <button className="md:hidden text-grape-900" onClick={toggleMenu}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
       {isMenuOpen && (
-        <div className="md:hidden bg-white">
+        <div className="md:hidden backdrop-blur-md shadow-md">
           {navItems.map((item) => (
             <Link
               key={item}
               href={`#${item.toLowerCase()}`}
-              className="block py-2 px-4 text-gray-800 hover:bg-gray-200"
+              className="block py-2 px-4 text-yellow-300 hover:border-b-2 hover:text-grape-900 "
               onClick={toggleMenu}
             >
               {item}
