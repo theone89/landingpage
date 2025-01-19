@@ -5,8 +5,14 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet-defaulticon-compatibility";
 
+interface Branch {
+  name: string;
+  lat: number;
+  lng: number;
+}
+
 export default function Branches() {
-  const branches = [
+  const branches: Branch[] = [
     { name: "Sede Central", lat: 40.416775, lng: -3.70379 },
     { name: "Cuba Office", lat: 23.101836092186808, lng: -82.3713044663624 },
   ];
