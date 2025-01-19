@@ -5,11 +5,11 @@ const MessageHeader = () => {
   return (
     <TypeAnimation
       sequence={[
-        "Innovación y Creatividad", // Types 'One'
+        "Innovación y Creatividad.", // Types 'One'
         1000, // Waits 1s
-        "Tus ideas en realidad digital", // Deletes 'One' and types 'Two'
+        "Desarrollo web y marketing, todo en uno.", // Deletes 'One' and types 'Two'
         2000, // Waits 2s
-        "Strong Free Code",
+        "Tu aliado tecnológico para crecer sin límites.",
         3000, // Types 'Three' without deleting 'Two'
         () => {
           console.log("Sequence completed");

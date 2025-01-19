@@ -41,8 +41,8 @@ export default function Navbar() {
             href="/"
             className={`text-2xl font-bold ${
               isScrolled
-                ? "text-grape-100 hover:text-zaffre-900 "
-                : "text-grape-900 hover:text-zaffre-600"
+                ? "text-yellow-300 hover:text-zaffre-900 "
+                : "text-grape-900 hover:text-yellow-300"
             }`}
           >
             StrongFreeCode
