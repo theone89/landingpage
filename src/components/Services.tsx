@@ -1,5 +1,7 @@
 //import InteractiveBackground from "./InteractiveBackground";
 
+import ServiceCards from "./ServiceCards";
+
 export default function Services() {
   const services = [
     { name: "Consultoría", icon: "📊" },
@@ -9,16 +11,17 @@ export default function Services() {
   ];
 
   return (
-    <section id="servicios" className="px-4 relative my-32">
+    <section id="servicios" className="px-4 relative my-0">
       <div className="relative z-10">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-grape-900">
+        <h2 className="text-4xl md:text-6xl text-center font-bold mb-4 text-yellow-300">
           Nuestros Servicios
         </h2>
-        <p className="text-center mb-12 max-w-2xl mx-auto text-grape-900">
+        <p className="text-xl text-center md:text-2xl mb-8 text-grape-900">
           Ofrecemos una gama completa de servicios empresariales adaptados a tus
           necesidades.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <ServiceCards />
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
           {services.map((service, index) => (
             <div
               key={index}
@@ -28,7 +31,7 @@ export default function Services() {
               <h3 className="text-xl font-semibold mb-2">{service.name}</h3>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </section>
   );

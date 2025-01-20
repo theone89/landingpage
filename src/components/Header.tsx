@@ -16,9 +16,9 @@ export default function Header() {
       <p className="text-xl md:text-2xl mb-8">
         Solucion IT al alcance de tus manos
       </p>
-      <p className="mb-24 text-xs md:text-md">
+      <div className="mb-24 h-24  text-xs md:text-md">
         <MessageHeader />
-      </p>
+      </div>
       <Link
         href="#contacto"
         className="bg-white  text-grape-300 px-6 py-3 rounded-full text-lg font-semibold hover:bg-grape-100 hover:text-grape-900 transition duration-300"
