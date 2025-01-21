@@ -180,7 +180,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
 }) => {
   return (
     <motion.div
-      className="bg-white p-6 rounded-lg shadow-lg relative overflow-hidden group"
+      className="bg-white p-6 rounded-lg shadow-lg relative overflow-hidden group border-b-2 border-black"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 1.05 }}
       initial={{ opacity: 0, y: 80 }}
@@ -193,6 +193,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         {name}
       </h3>
       <div className="absolute inset-0 p-6 bg-blue-500 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center">
+        <Icon className="" />
         <p>{description}</p>
       </div>
     </motion.div>
@@ -214,7 +215,7 @@ const ServiceCards = () => {
     const interval = setInterval(() => {
       index = (index + 1) % categories.length;
       setSelectedCategory(categories[index]);
-    }, 60000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, [selectedCategory]);
@@ -225,7 +226,7 @@ const ServiceCards = () => {
         <button
           className={`px-4 py-2 rounded-full ${
             selectedCategory === "Todos"
-              ? "bg-blue-500 text-white"
+              ? "bg-gradient-to-r border-b-2  from-blue-500 via-purple-500 to-pink-500 text-white "
               : "bg-gray-200 text-gray-800"
           }`}
           onClick={() => setSelectedCategory("Todos")}
@@ -237,7 +238,7 @@ const ServiceCards = () => {
             key={category.category}
             className={`px-4 py-2 rounded-full ${
               selectedCategory === category.category
-                ? "bg-blue-500 text-white"
+                ? "bg-gradient-to-r border-b-2  from-blue-500 via-purple-500 to-pink-500 text-white "
                 : "bg-gray-200 text-gray-800"
             }`}
             onClick={() => setSelectedCategory(category.category)}
