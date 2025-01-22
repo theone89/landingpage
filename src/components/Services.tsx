@@ -3,7 +3,7 @@
 import ServiceCards from "./ServiceCards";
 
 export default function Services() {
- /* const services = [
+  /* const services = [
     { name: "Consultoría", icon: "📊" },
     { name: "Desarrollo de Software", icon: "💻" },
     { name: "Marketing Digital", icon: "📱" },
@@ -11,8 +11,8 @@ export default function Services() {
   ];*/
 
   return (
-    <section id="servicios" className="px-4 relative my-0">
-      <div className="relative z-10">
+    <section id="servicios" className="px-4 relative my-0 ">
+      <div className="relative z-10 ">
         <h2 className="text-4xl md:text-6xl text-center font-bold mb-4 text-yellow-300">
           Nuestros Servicios
         </h2>
