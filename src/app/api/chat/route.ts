@@ -1,7 +1,7 @@
 // app/api/chat/route.js
 import { openai } from "@ai-sdk/openai";
 import { streamText } from "ai";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 // System Prompt (el mismo que usaste para el bot de Telegram)
 const systemPrompt = `
@@ -27,7 +27,7 @@ Hola, soy el Asistente Virtual de StrongFreeCode. Estoy aquí para ayudarte con 
 `;
 
 // Manejar solicitudes POST (para el chatbot web)
-export async function POST(request: NextResponse) {
+export async function POST(request: NextRequest) {
   const { messages } = await request.json(); // Obtener los mensajes del cuerpo de la solicitud
 
   try {
