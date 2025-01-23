@@ -9,6 +9,7 @@ const bot = new TelegramBot(token, { polling: true });
 bot.on('message', (msg) => {
     const chatId = msg.chat.id;
     const text = msg.text;
+
     console.log('Mensaje recibido:', text);
     // Responder al mensaje
     bot.sendMessage(chatId, `Recibí al server: ${text}`);
