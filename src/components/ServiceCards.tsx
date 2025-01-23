@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   CodeBracketIcon,
   DevicePhoneMobileIcon,
@@ -173,37 +173,39 @@ interface ServiceCardProps {
   description: string;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({
-  name,
-  icon: Icon,
-  description,
-}) => {
-  return (
-    <motion.div
-      className="bg-white p-6 rounded-lg shadow-lg relative overflow-hidden group border-b-2 border-black"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 1.05 }}
-      initial={{ opacity: 0, y: 80 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 50 }}
-      transition={{ duration: 0.7 }}
-    >
-      <Icon className="h-12 w-12 text-blue-500 mb-4 group-hover:opacity-0 transition-opacity duration-300" />
-      <h3 className="text-lg font-semibold text-gray-800 group-hover:opacity-0 transition-opacity duration-300">
-        {name}
-      </h3>
-      <div className="absolute inset-0 p-6 bg-blue-500 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center">
-        <Icon className="" />
-        <p>{description}</p>
-      </div>
-    </motion.div>
-  );
-};
+const ServiceCard = React.memo<ServiceCardProps>(
+  ({ name, icon: Icon, description }) => {
+    return (
+      <motion.div
+        className="bg-white p-6 rounded-lg shadow-lg relative overflow-hidden group border-b-2 border-black"
+        whileHover={{ scale: 1.02 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <Icon className="h-12 w-12 text-blue-500 mb-4 group-hover:opacity-0 transition-opacity duration-300" />
+        <h3 className="text-lg font-semibold text-gray-800 group-hover:opacity-0 transition-opacity duration-300">
+          {name}
+        </h3>
+        <div className="absolute inset-0 p-6 bg-blue-500 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-center">
+          <p>{description}</p>
+        </div>
+      </motion.div>
+    );
+  }
+);
+
+ServiceCard.displayName = "ServiceCard"; // Para debugging en React DevTools
 
 const ServiceCards = () => {
   const [selectedCategory, setSelectedCategory] = useState(
     "Desarrollo y Diseño Web"
   );
+  const [visibleItems, setVisibleItems] = useState(6); // Mostrar solo 6 elementos inicialmente
+
+  const loadMore = () => {
+    setVisibleItems((prev) => prev + 6); // Cargar 6 elementos más
+  };
 
   useEffect(() => {
     const categories = [
@@ -215,7 +217,7 @@ const ServiceCards = () => {
     const interval = setInterval(() => {
       index = (index + 1) % categories.length;
       setSelectedCategory(categories[index]);
-    }, 10000);
+    }, 20000); // Cambiar categoría cada 20 segundos
 
     return () => clearInterval(interval);
   }, [selectedCategory]);
@@ -226,10 +228,13 @@ const ServiceCards = () => {
         <button
           className={`px-4 py-2 rounded-full ${
             selectedCategory === "Todos"
-              ? "bg-gradient-to-r border-b-2  from-blue-500 via-purple-500 to-pink-500 text-white "
+              ? "bg-gradient-to-r border-b-2 from-blue-500 via-purple-500 to-pink-500 text-white"
               : "bg-gray-200 text-gray-800"
           }`}
-          onClick={() => setSelectedCategory("Todos")}
+          onClick={() => {
+            setSelectedCategory("Todos");
+            setVisibleItems(6); // Reiniciar la cantidad de elementos visibles
+          }}
         >
           Todos
         </button>
@@ -238,35 +243,51 @@ const ServiceCards = () => {
             key={category.category}
             className={`px-4 py-2 rounded-full ${
               selectedCategory === category.category
-                ? "bg-gradient-to-r border-b-2  from-blue-500 via-purple-500 to-pink-500 text-white "
+                ? "bg-gradient-to-r border-b-2 from-blue-500 via-purple-500 to-pink-500 text-white"
                 : "bg-gray-200 text-gray-800"
             }`}
-            onClick={() => setSelectedCategory(category.category)}
+            onClick={() => {
+              setSelectedCategory(category.category);
+              setVisibleItems(6); // Reiniciar la cantidad de elementos visibles
+            }}
           >
             {category.category}
           </button>
         ))}
       </div>
-      <AnimatePresence>
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          layout
-        >
-          {services.map(
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        layout
+      >
+        {services
+          .filter(
             (category) =>
-              (selectedCategory === "Todos" ||
-                selectedCategory === category.category) &&
-              category.items.map((service) => (
-                <ServiceCard
-                  key={service.name}
-                  name={service.name}
-                  icon={service.icon}
-                  description={service.description}
-                />
-              ))
-          )}
-        </motion.div>
-      </AnimatePresence>
+              selectedCategory === "Todos" ||
+              selectedCategory === category.category
+          )
+          .flatMap((category) => category.items)
+          .slice(0, visibleItems) // Mostrar solo los elementos visibles
+          .map((service) => (
+            <ServiceCard
+              key={service.name}
+              name={service.name}
+              icon={service.icon}
+              description={service.description}
+            />
+          ))}
+      </motion.div>
+      {selectedCategory === "Todos" &&
+        visibleItems <
+          services.flatMap((category) => category.items).length && (
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={loadMore}
+              className="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
+            >
+              Cargar más
+            </button>
+          </div>
+        )}
     </div>
   );
 };

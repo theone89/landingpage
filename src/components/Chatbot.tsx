@@ -65,7 +65,7 @@ export default function Chatbot() {
       {/* Botón para abrir/cerrar el chat */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-16 right-6 bg-zaffre-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition-all"
+        className="fixed bottom-16 right-6 bg-zaffre-700 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition-all"
         variants={chatButtonVariants}
         initial="initial"
         animate={isShaking ? "shake" : "initial"} // Activar la animación de agitación
@@ -94,7 +94,7 @@ export default function Chatbot() {
       {/* Mensaje de invitación cuando el chat está cerrado */}
       {!isOpen && showInvitation && (
         <motion.div
-          className="fixed bottom-36 right-6 bg-zaffre-500 text-white p-3 rounded-lg shadow-lg"
+          className="fixed bottom-36 right-6 bg-zaffre-700 text-white p-3 rounded-lg shadow-lg"
           variants={invitationVariants}
           initial="hidden"
           animate="visible"
@@ -114,7 +114,7 @@ export default function Chatbot() {
 
           {/* Piquito del globo de chat */}
           <div
-            className="absolute -bottom-2 right-2 w-4 h-4 bg-zaffre-500 transform rotate-45"
+            className="absolute -bottom-2 right-2 w-4 h-4 bg-zaffre-700 transform rotate-45"
             style={{
               clipPath: "polygon(0% 0%, 100% 100%, 0% 100%)",
             }}
