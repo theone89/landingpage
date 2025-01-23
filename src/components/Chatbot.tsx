@@ -3,16 +3,31 @@
 import { useState, useEffect } from "react"; // Importamos useEffect
 import { useChat } from "ai/react";
 import Image from "next/image";
-import { User } from "lucide-react";
+import { User, X } from "lucide-react"; // Importamos el ícono de cerrar (X)
 import { motion, AnimatePresence } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false); // Estado para controlar si el chat está abierto
   const [isShaking, setIsShaking] = useState(false); // Estado para controlar la animación de agitación
+  const [showInvitation, setShowInvitation] = useState(true); // Estado para controlar la visibilidad del globo de chat
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: "/api/chat",
   });
+
+  // Efecto para cargar la preferencia del usuario desde localStorage
+  useEffect(() => {
+    const isInvitationHidden = localStorage.getItem("isInvitationHidden");
+    if (isInvitationHidden === "true") {
+      setShowInvitation(false); // Ocultar el globo de chat si el usuario lo cerró antes
+    }
+  }, []);
+
+  // Función para ocultar el globo de chat y guardar la preferencia en localStorage
+  const handleCloseInvitation = () => {
+    setShowInvitation(false);
+    localStorage.setItem("isInvitationHidden", "true"); // Guardar la preferencia del usuario
+  };
 
   // Animaciones
   const chatButtonVariants = {
@@ -77,7 +92,7 @@ export default function Chatbot() {
       </motion.button>
 
       {/* Mensaje de invitación cuando el chat está cerrado */}
-      {!isOpen && (
+      {!isOpen && showInvitation && (
         <motion.div
           className="fixed bottom-36 right-6 bg-zaffre-500 text-white p-3 rounded-lg shadow-lg"
           variants={invitationVariants}
@@ -89,6 +104,14 @@ export default function Chatbot() {
             zIndex: 999, // Asegura que el globo esté detrás del botón
           }}
         >
+          {/* Botón de cerrar (X) */}
+          <button
+            onClick={handleCloseInvitation}
+            className="absolute top-1 right-1 text-white hover:text-gray-200"
+          >
+            <X className="h-4 w-4" /> {/* Ícono de cerrar */}
+          </button>
+
           {/* Piquito del globo de chat */}
           <div
             className="absolute -bottom-2 right-2 w-4 h-4 bg-zaffre-500 transform rotate-45"

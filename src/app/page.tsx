@@ -15,7 +15,7 @@ import Chatbot from "@/components/Chatbot";
 
 export default function Home() {
   return (
-    <main className="min-h-screen ">
+    <main className="min-h-screen overflow-hidden ">
       <Background />
 
       <Chatbot />
