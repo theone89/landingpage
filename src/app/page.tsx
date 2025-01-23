@@ -1,3 +1,4 @@
+"use client";
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import Services from "@/components/Services"; /* 
@@ -10,11 +11,15 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import Background from "@/components/Background";
+import Chatbot from "@/components/Chatbot";
 
 export default function Home() {
   return (
     <main className="min-h-screen ">
       <Background />
+
+      <Chatbot />
+
       <Navbar />
       <Header />
       <Services />
