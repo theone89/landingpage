@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useChat } from "ai/react";
 import Image from "next/image";
+import { User } from "lucide-react";
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false); // Estado para controlar si el chat está abierto
@@ -11,7 +12,7 @@ export default function Chatbot() {
   });
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-16 right-6 z-50">
       {/* Botón para abrir/cerrar el chat */}
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -65,25 +66,36 @@ export default function Chatbot() {
             {messages.map((message) => (
               <div
                 key={message.id}
-                className={`mb-3 p-3 rounded-lg  ${
-                  message.role === "user"
-                    ? "bg-blue-100 text-blue-900 ml-auto max-w-xs"
-                    : "bg-gray-400 text-gray-900 mr-auto max-w-xs"
+                className={`mb-4 flex flex-col ${
+                  message.role === "user" ? "items-end" : "items-start"
                 }`}
               >
-                {message.role === "user" ? (
-                  "User: "
-                ) : (
-                  <Image
-                    alt="sfc_imagen"
-                    width={25}
-                    height={25}
-                    quality={100}
-                    src={"/assets/images/SFC StrongFreeCode (light).jpg"}
-                    className="rounded-full"
-                  />
-                )}
-                {message.content}
+                {/* Ícono */}
+                <div className="flex items-center justify-center mb-1">
+                  {message.role === "user" ? (
+                    <User className="h-6 w-6 text-blue-500" /> // Ícono del usuario
+                  ) : (
+                    <Image
+                      alt="sfc_imagen"
+                      width={25}
+                      height={25}
+                      quality={100}
+                      src={"/assets/images/SFC StrongFreeCode (light).jpg"}
+                      className="rounded-full"
+                    />
+                  )}
+                </div>
+
+                {/* Texto del mensaje */}
+                <div
+                  className={`p-3 rounded-lg max-w-xs ${
+                    message.role === "user"
+                      ? "bg-blue-100 text-blue-900"
+                      : "bg-gray-400 text-gray-900"
+                  }`}
+                >
+                  {message.content}
+                </div>
               </div>
             ))}
           </div>
