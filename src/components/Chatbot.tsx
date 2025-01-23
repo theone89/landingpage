@@ -194,7 +194,10 @@ export default function Chatbot() {
                   {/* Ícono */}
                   <div className="flex items-center justify-center mb-1">
                     {message.role === "user" ? (
-                      <User className="h-6 w-6 text-blue-500" /> // Ícono del usuario
+                      <User
+                        className="h-6 w-6 border border-blue-500
+                        text-blue-500 rounded-full"
+                      /> // Ícono del usuario
                     ) : (
                       <Image
                         alt="sfc_imagen"

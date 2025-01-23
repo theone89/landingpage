@@ -156,7 +156,7 @@ const services = [
 // Función para generar una respuesta usando OpenAI
 async function generateOpenAIResponse(prompt) {
     const { text } = await generateText({
-        model: openai('gpt-4o-mini'), // Usar el modelo gpt-3.5-turbo
+        model: openai('gpt-4o-mini'),
         messages: [
             { role: 'system', content: systemPrompt }, // System prompt
             { role: 'user', content: prompt }, // Mensaje del usuario

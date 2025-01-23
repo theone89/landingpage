@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
   try {
     // Generar una respuesta en flujo usando OpenAI
     const result = await streamText({
-      model: openai("gpt-4-turbo"), // Usar el modelo gpt-4-turbo
+      model: openai("gpt-4o-mini"),
       system: systemPromptString, // System prompt
       messages, // Mensajes anteriores del chat
     });
