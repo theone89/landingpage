@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useChat } from "ai/react";
 import Image from "next/image";
 import { User } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { TypeAnimation } from "react-type-animation";
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false); // Estado para controlar si el chat está abierto
@@ -11,12 +13,36 @@ export default function Chatbot() {
     api: "/api/chat",
   });
 
+  // Animaciones
+  const chatButtonVariants = {
+    initial: { scale: 1 },
+    hover: { scale: 1.1 },
+    tap: { scale: 0.9 },
+  };
+
+  const chatContainerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  const invitationVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <div className="fixed bottom-16 right-6 z-50">
       {/* Botón para abrir/cerrar el chat */}
-      <button
+      <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition-all"
+        className="fixed bottom-16 right-6 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition-all"
+        variants={chatButtonVariants}
+        initial="initial"
+        whileHover="hover"
+        whileTap="tap"
+        style={{
+          zIndex: 1000, // Asegura que el botón esté siempre encima
+        }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -32,95 +58,144 @@ export default function Chatbot() {
             d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
           />
         </svg>
-      </button>
+      </motion.button>
+
+      {/* Mensaje de invitación cuando el chat está cerrado */}
+      {!isOpen && (
+        <motion.div
+          className="fixed bottom-36 right-6 bg-blue-500 text-white p-3 rounded-lg shadow-lg"
+          variants={invitationVariants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 1 }}
+          style={{
+            position: "fixed",
+            zIndex: 999, // Asegura que el globo esté detrás del botón
+          }}
+        >
+          {/* Piquito del globo de chat */}
+          <div
+            className="absolute -bottom-2 right-4 w-4 h-4 bg-blue-500 transform rotate-45"
+            style={{
+              clipPath: "polygon(0% 0%, 100% 100%, 0% 100%)",
+            }}
+          ></div>
+
+          {/* Contenido del globo de chat */}
+          <TypeAnimation
+            sequence={[
+              "¿En qué podemos ayudarte?",
+              10000,
+              "Assistente online 24/7",
+              10000,
+            ]}
+            className="text-xs"
+            speed={25}
+            repeat={Infinity}
+          />
+        </motion.div>
+      )}
 
       {/* Contenedor del chat */}
-      {isOpen && (
-        <div className="mt-4 w-96 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
-          {/* Encabezado del chat */}
-          <div className="bg-blue-500 text-white p-4 flex justify-between items-center">
-            <h2 className="text-lg font-semibold">Chat de Soporte</h2>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="text-white hover:text-gray-200"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="fixed bottom-0 right-6 w-96 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden"
+            variants={chatContainerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            style={{
+              zIndex: 1000, // Asegura que el chat esté encima del botón
+              height: "calc(100vh - 8rem)", // Ajusta el alto restando la altura de la barra de navegación
+              top: "4rem", // Ajusta la posición para respetar la barra de navegación
+            }}
+          >
+            {/* Encabezado del chat */}
+            <div className="bg-blue-500 text-white p-4 flex justify-between items-center">
+              <h2 className="text-lg font-semibold">Chat de Soporte</h2>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-white hover:text-gray-200"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
 
-          {/* Contenedor de mensajes */}
-          <div className="h-96 overflow-y-auto p-4 bg-gray-50">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`mb-4 flex flex-col ${
-                  message.role === "user" ? "items-end" : "items-start"
-                }`}
-              >
-                {/* Ícono */}
-                <div className="flex items-center justify-center mb-1">
-                  {message.role === "user" ? (
-                    <User className="h-6 w-6 text-blue-500" /> // Ícono del usuario
-                  ) : (
-                    <Image
-                      alt="sfc_imagen"
-                      width={25}
-                      height={25}
-                      quality={100}
-                      src={"/assets/images/SFC StrongFreeCode (light).jpg"}
-                      className="rounded-full"
-                    />
-                  )}
-                </div>
-
-                {/* Texto del mensaje */}
+            {/* Contenedor de mensajes */}
+            <div className="h-[calc(100%-8rem)] overflow-y-auto p-4 bg-gray-50">
+              {messages.map((message) => (
                 <div
-                  className={`p-3 rounded-lg max-w-xs ${
-                    message.role === "user"
-                      ? "bg-blue-100 text-blue-900"
-                      : "bg-gray-400 text-gray-900"
+                  key={message.id}
+                  className={`mb-4 flex flex-col ${
+                    message.role === "user" ? "items-end" : "items-start"
                   }`}
                 >
-                  {message.content}
-                </div>
-              </div>
-            ))}
-          </div>
+                  {/* Ícono */}
+                  <div className="flex items-center justify-center mb-1">
+                    {message.role === "user" ? (
+                      <User className="h-6 w-6 text-blue-500" /> // Ícono del usuario
+                    ) : (
+                      <Image
+                        alt="sfc_imagen"
+                        width={25}
+                        height={25}
+                        quality={100}
+                        src={"/assets/images/SFC StrongFreeCode (light).jpg"}
+                        className="rounded-full"
+                      />
+                    )}
+                  </div>
 
-          {/* Formulario de entrada */}
-          <form
-            onSubmit={handleSubmit}
-            className="flex gap-2 p-4 border-t border-gray-200"
-          >
-            <input
-              type="text"
-              value={input}
-              onChange={handleInputChange}
-              placeholder="Escribe tu mensaje..."
-              className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button
-              type="submit"
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  {/* Texto del mensaje */}
+                  <div
+                    className={`p-3 rounded-lg max-w-xs ${
+                      message.role === "user"
+                        ? "bg-blue-100 text-blue-900"
+                        : "bg-gray-400 text-gray-900"
+                    }`}
+                  >
+                    {message.content}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Formulario de entrada */}
+            <form
+              onSubmit={handleSubmit}
+              className="flex gap-2 p-4 border-t border-gray-200"
             >
-              Enviar
-            </button>
-          </form>
-        </div>
-      )}
+              <input
+                type="text"
+                value={input}
+                onChange={handleInputChange}
+                placeholder="Escribe tu mensaje..."
+                className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <button
+                type="submit"
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                Enviar
+              </button>
+            </form>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
