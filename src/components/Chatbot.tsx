@@ -1,6 +1,6 @@
 // components/Chatbot.jsx
 "use client"; // Marca el componente como del lado del cliente
-import { useState } from "react";
+import { useState, useEffect } from "react"; // Importamos useEffect
 import { useChat } from "ai/react";
 import Image from "next/image";
 import { User } from "lucide-react";
@@ -9,16 +9,31 @@ import { TypeAnimation } from "react-type-animation";
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false); // Estado para controlar si el chat está abierto
+  const [isShaking, setIsShaking] = useState(false); // Estado para controlar la animación de agitación
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: "/api/chat",
   });
 
   // Animaciones
   const chatButtonVariants = {
-    initial: { scale: 1 },
-    hover: { scale: 1.1 },
-    tap: { scale: 0.9 },
+    initial: { scale: 1, rotate: 0 }, // Estado inicial
+    hover: { scale: 1.1 }, // Animación al pasar el cursor
+    tap: { scale: 0.9 }, // Animación al hacer clic
+    shake: {
+      rotate: [0, -10, 10, -10, 10, 0], // Animación de agitación
+      transition: { duration: 0.5 }, // Duración de la animación
+    },
   };
+
+  // Efecto para agitar el botón cada cierto tiempo
+  useEffect(() => {
+    const shakeInterval = setInterval(() => {
+      setIsShaking(true); // Activar la animación de agitación
+      setTimeout(() => setIsShaking(false), 500); // Desactivar después de 500ms
+    }, 10000); // Agitar cada 10 segundos
+
+    return () => clearInterval(shakeInterval); // Limpiar el intervalo al desmontar el componente
+  }, []);
 
   const chatContainerVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -35,9 +50,10 @@ export default function Chatbot() {
       {/* Botón para abrir/cerrar el chat */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-16 right-6 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition-all"
+        className="fixed bottom-16 right-6 bg-zaffre-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition-all"
         variants={chatButtonVariants}
         initial="initial"
+        animate={isShaking ? "shake" : "initial"} // Activar la animación de agitación
         whileHover="hover"
         whileTap="tap"
         style={{
@@ -63,7 +79,7 @@ export default function Chatbot() {
       {/* Mensaje de invitación cuando el chat está cerrado */}
       {!isOpen && (
         <motion.div
-          className="fixed bottom-36 right-6 bg-blue-500 text-white p-3 rounded-lg shadow-lg"
+          className="fixed bottom-36 right-6 bg-zaffre-500 text-white p-3 rounded-lg shadow-lg"
           variants={invitationVariants}
           initial="hidden"
           animate="visible"
@@ -75,7 +91,7 @@ export default function Chatbot() {
         >
           {/* Piquito del globo de chat */}
           <div
-            className="absolute -bottom-2 right-4 w-4 h-4 bg-blue-500 transform rotate-45"
+            className="absolute -bottom-2 right-2 w-4 h-4 bg-zaffre-500 transform rotate-45"
             style={{
               clipPath: "polygon(0% 0%, 100% 100%, 0% 100%)",
             }}
@@ -113,6 +129,14 @@ export default function Chatbot() {
           >
             {/* Encabezado del chat */}
             <div className="bg-blue-500 text-white p-4 flex justify-between items-center">
+              <Image
+                alt="sfc_imagen"
+                width={30}
+                height={30}
+                quality={100}
+                src={"/assets/images/SFC StrongFreeCode (light).jpg"}
+                className="rounded-full"
+              />
               <h2 className="text-lg font-semibold">Chat de Soporte</h2>
               <button
                 onClick={() => setIsOpen(false)}
