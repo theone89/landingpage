@@ -27,7 +27,7 @@ Hola, soy el Asistente Virtual de StrongFreeCode. Estoy aquí para ayudarte con 
 `;
 
 // Manejar solicitudes POST (para el chatbot web)
-export async function POST(request: Response) {
+export async function POST(request: NextResponse) {
   const { messages } = await request.json(); // Obtener los mensajes del cuerpo de la solicitud
 
   try {
