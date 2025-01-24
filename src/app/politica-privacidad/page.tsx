@@ -1,6 +1,6 @@
 import React from "react";
 
-export function Policy() {
+export default function Policy() {
   return (
     <div className="container mx-auto px-4 py-24 bg-slate-100 relative">
       <h1 className="text-3xl font-bold text-center mb-4">
@@ -631,4 +631,3 @@ export function Policy() {
     </div>
   );
 }
-export default Policy;
