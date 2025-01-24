@@ -2,21 +2,19 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation"; // Importar usePathname
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import Image from "next/image";
+import SfcLogo from "./SfcLogo"; // Importar el componente SVG
 
-// Definir el tipo para los elementos del menú
 type NavItem =
-  | { name: string; path: string } // Enlace de página
-  | { name: string; section: string }; // Enlace de sección
+  | { name: string; path: string }
+  | { name: string; section: string };
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const pathname = usePathname(); // Obtener la ruta actual
+  const pathname = usePathname();
 
-  // Manejar el scroll
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
@@ -25,17 +23,14 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Alternar el menú móvil
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
-  // Cerrar el menú móvil al hacer clic en un enlace
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
 
-  // Elementos del menú
   const navItems: NavItem[] = [
     { name: "Inicio", path: "/" },
     { name: "Servicios", section: "servicios" },
@@ -45,20 +40,18 @@ export default function Navbar() {
     { name: "Contacto", section: "contacto" },
   ];
 
-  // Determinar el color de los enlaces
   const linkColor =
     pathname === "/" || pathname === "/contacto-patrocinio"
-      ? "text-yellow-300"
-      : "text-black";
+      ? "text-yellow-300 hover:text-zaffre-900 "
+      : "text-black hover:text-grape-500 ";
 
-  // Función para generar enlaces dinámicos
   const getLinkHref = (item: NavItem): string => {
     if ("path" in item) {
-      return item.path; // Enlace de página normal
+      return item.path;
     } else if ("section" in item) {
-      return pathname === "/" ? `#${item.section}` : `/#${item.section}`; // Enlace de sección
+      return pathname === "/" ? `#${item.section}` : `/#${item.section}`;
     }
-    return "#"; // Enlace por defecto
+    return "#";
   };
 
   return (
@@ -72,9 +65,17 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className={`text-2xl font-bold ${linkColor} flex justify-between gap-1  hover:text-zaffre-900 transition-colors duration-300`}
+            className={`text-2xl font-bold ${linkColor} flex justify-between gap-1 transition-colors duration-300`}
           >
-            <Image src={"/sfc.svg"} width={25} height={25} alt="logo SFC" />{" "}
+            <SfcLogo
+              color={
+                pathname === "/" || pathname === "/contacto-patrocinio"
+                  ? "yellow"
+                  : "black"
+              }
+              className={`w-8 h-8`}
+            />{" "}
+            {/* Usar el componente SVG */}
             StrongFreeCode
           </Link>
 
