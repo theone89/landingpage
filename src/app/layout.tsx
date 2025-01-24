@@ -1,6 +1,11 @@
+import Navbar from "@/components/Navbar";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
+import Chatbot from "@/components/Chatbot";
+import Background from "@/components/Background";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -123,7 +128,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Background />
+        <Navbar />
+        <Chatbot />
+        {children}
+        <ScrollToTop />
+        <Footer />
+      </body>
     </html>
   );
 }
