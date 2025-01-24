@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const Loading = () => {
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-900">
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-900 z-50">
       <motion.div
         className="flex space-x-2"
         initial={{ opacity: 0 }}

@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import Chatbot from "@/components/Chatbot";
 import Background from "@/components/Background";
+import ClientLoadingWrapper from "@/components/ClientLoadingWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -129,12 +130,14 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={`${inter.className} `}>
-        <Background />
-        <Navbar />
-        <Chatbot />
-        {children}
-        <ScrollToTop />
-        <Footer />
+        <ClientLoadingWrapper>
+          <Background />
+          <Navbar />
+          <Chatbot />
+          {children}
+          <ScrollToTop />
+          <Footer />
+        </ClientLoadingWrapper>
       </body>
     </html>
   );
