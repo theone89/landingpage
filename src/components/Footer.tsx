@@ -19,12 +19,14 @@ export default function Footer() {
           <div>
             <h3 className="text-2xl font-bold mb-4">Sobre Nosotros</h3>
             <p className="mb-4">
-              StrongFreeCode es líder en soluciones empresariales, comprometida
-              con la innovación y la excelencia en el servicio al cliente.
+              StrongFreeCode ofrece soluciones IT innovadoras y personalizadas,
+              diseñadas para impulsar el crecimiento de tu negocio. Con un
+              enfoque en la excelencia y el servicio al cliente, estamos
+              comprometidos a ser tu aliado tecnológico.
             </p>
-            <p>Dirección: Calle Ejemplo, 123, 28001 Madrid, España</p>
+            <p>Dirección: Calle sel, 123, 28001 Madrid, España</p>
             <p>Teléfono: +34 91 123 45 67</p>
-            <p>Email: info@ejemplo.com</p>
+            <p>Email: info@strongfreecode.com</p>
           </div>
           <div>
             <h3 className="text-2xl font-bold mb-4">Enlaces Rápidos</h3>
