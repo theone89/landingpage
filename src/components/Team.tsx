@@ -31,7 +31,7 @@ export default function Team() {
         {team.map((member, index) => (
           <div key={index} className="text-center">
             <Image
-              src={member.image || "/assets/images/Strong_Free CODE(black).jpg"}
+              src={member.image || "/assets/images/sfcnew/sfc_new.png"}
               alt={member.name}
               width={200}
               height={200}

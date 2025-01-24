@@ -2,7 +2,16 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["via.placeholder.com","wonderfulltime.com"], 
+    remotePatterns: [
+      {
+        protocol: "https", // Especifica el protocolo (http o https)
+        hostname: "via.placeholder.com", // Dominio permitido
+      },
+      {
+        protocol: "https",
+        hostname: "wonderfulltime.com", // Dominio permitido
+      },
+    ],
   },
 };
 

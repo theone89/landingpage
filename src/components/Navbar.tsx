@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // Importar usePathname
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 // Definir el tipo para los elementos del menú
 type NavItem =
@@ -71,8 +72,9 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className={`text-2xl font-bold ${linkColor} hover:text-zaffre-900 transition-colors duration-300`}
+            className={`text-2xl font-bold ${linkColor} flex justify-between gap-1  hover:text-zaffre-900 transition-colors duration-300`}
           >
+            <Image src={"/sfc.svg"} width={25} height={25} alt="logo SFC" />{" "}
             StrongFreeCode
           </Link>
 
