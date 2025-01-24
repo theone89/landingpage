@@ -24,7 +24,7 @@ export default function Contact() {
   return (
     <section
       id="contacto"
-      className="bg-grape-100 py-20 px-4 relative text-yellow-300"
+      className="bg-grape-100 py-20 px-4 w-full relative text-yellow-300"
     >
       <h2 className="text-4xl md:text-6xl text-center font-bold mb-4 text-yellow-300">
         Contáctanos
