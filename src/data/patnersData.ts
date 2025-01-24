@@ -15,7 +15,7 @@ export const partners: Partner[] = [
   {
     name: "NP-AREAS",
     logo: "/assets/images/np-arias.jpg",
-    website: "https://np-areas.com", // Sitio web de NP-AREAS
+    website: "https://np-arias.vercel.app/en", // Sitio web de NP-AREAS
     slogan: "“Aesthetic clinic”", // Slogan de NP-AREAS
   },
   {
