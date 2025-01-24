@@ -53,7 +53,7 @@ const PartnersSection = ({ partners }: PartnersSectionProps) => {
   };
 
   return (
-    <div className="border-t border-gray-700 pt-8 my-8 mx-12 relative">
+    <div className="border-t border-gray-700 pt-8 my-8 md:mx-12 relative">
       <h3 className="text-4xl md:text-6xl font-bold mb-4 text-yellow-300 text-center">
         Nuestros Asociados
       </h3>

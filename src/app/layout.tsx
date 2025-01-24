@@ -12,6 +12,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "StrongFreeCode | Desarrollo, Programación, Seo y Asistencia IT",
+  icons: {
+    icon: "/sfc.svg",
+  },
+
   description:
     "Innovación y Creatividad en Cada Click En Strong Free Code, nos dedicamos a transformar tus ideas en realidad digital. Asistencia tecnica y assesoria online ,publicidad y marketing digital",
   keywords: [
