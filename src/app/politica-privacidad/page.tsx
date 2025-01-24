@@ -2,7 +2,7 @@ import React from "react";
 
 export function Policy() {
   return (
-    <div className="container mx-auto px-4 py-24 bg-slate-100 relative ">
+    <div className="container mx-auto px-4 py-24 bg-slate-100 relative">
       <h1 className="text-3xl font-bold text-center mb-4">
         Política de Privacidad
       </h1>
@@ -61,15 +61,16 @@ export function Policy() {
           <p>
             <strong>Afiliado</strong> significa una entidad que controla, es
             controlada por o está bajo control común con una parte, donde
-            "control" significa la propiedad del 50% o más de las acciones,
-            interés de capital u otros valores con derecho a voto para la
-            elección de directores u otra autoridad de gestión.
+            &quot;control&quot; significa la propiedad del 50% o más de las
+            acciones, interés de capital u otros valores con derecho a voto para
+            la elección de directores u otra autoridad de gestión.
           </p>
         </li>
         <li className="mb-2">
           <p>
-            <strong>Compañía</strong> (referida como "la Compañía", "Nosotros",
-            "Nos" o "Nuestro" en este Acuerdo) se refiere a StrongFreeCode.
+            <strong>Compañía</strong> (referida como &quot;la Compañía&quot;,
+            &quot;Nosotros&quot;, &quot;Nos&quot; o &quot;Nuestro&quot; en este
+            Acuerdo) se refiere a StrongFreeCode.
           </p>
         </li>
         <li className="mb-2">
@@ -231,11 +232,11 @@ export function Policy() {
       </ul>
 
       <p className="mb-4">
-        Las Cookies pueden ser "Persistentes" o "de Sesión". Las Cookies
-        Persistentes permanecen en Su computadora personal o dispositivo móvil
-        cuando Usted se desconecta, mientras que las Cookies de Sesión se
-        eliminan tan pronto como Usted cierra Su navegador web. Obtenga más
-        información sobre las Cookies en el artículo del{" "}
+        Las Cookies pueden ser &quot;Persistentes&quot; o &quot;de Sesión&quot;.
+        Las Cookies Persistentes permanecen en Su computadora personal o
+        dispositivo móvil cuando Usted se desconecta, mientras que las Cookies
+        de Sesión se eliminan tan pronto como Usted cierra Su navegador web.
+        Obtenga más información sobre las Cookies en el artículo del{" "}
         <a
           href="https://www.privacypolicies.com/blog/privacy-policy-template/#Use_Of_Cookies_Log_Files_And_Tracking"
           target="_blank"
@@ -588,8 +589,8 @@ export function Policy() {
       <p className="mb-4">
         Le informaremos a través de un correo electrónico y/o un aviso destacado
         en Nuestro Servicio, antes de que el cambio entre en vigencia y
-        actualizaremos la fecha de "Última actualización" en la parte superior
-        de esta Política de Privacidad.
+        actualizaremos la fecha de &quot;Última actualización&quot; en la parte
+        superior de esta Política de Privacidad.
       </p>
       <p className="mb-8">
         Se le recomienda revisar esta Política de Privacidad periódicamente para
@@ -630,5 +631,4 @@ export function Policy() {
     </div>
   );
 }
-
 export default Policy;
