@@ -7,10 +7,12 @@ import Branches from "@/components/Branches";
 import News from "@/components/News";
 import Timeline from "@/components/Timeline";*/
 import Contact from "@/components/Contact";
+import PartnersSection from "@/components/PatnersSlider";
+import { partners } from "@/data/patnersData";
 
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-hidden ">
+    <main className="min-h-screen  ">
       <Header />
       <Services />
       {/*  <Mission />
@@ -19,6 +21,7 @@ export default function Home() {
       <News />
       <Timeline />` */}
       <Contact />
+      <PartnersSection partners={partners} />
     </main>
   );
 }
