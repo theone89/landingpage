@@ -9,12 +9,14 @@ import Timeline from "@/components/Timeline";*/
 import Contact from "@/components/Contact";
 import PartnersSection from "@/components/PatnersSlider";
 import { partners } from "@/data/patnersData";
+import Team from "@/components/Team";
 
 export default function Home() {
   return (
     <main className="min-h-screen  ">
       <Header />
       <Services />
+      <Team />
       {/*  <Mission />
       <Branches />
       <News />
