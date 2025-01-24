@@ -45,7 +45,10 @@ export default function Navbar() {
   ];
 
   // Determinar el color de los enlaces
-  const linkColor = pathname === "/" ? "text-yellow-300" : "text-black";
+  const linkColor =
+    pathname === "/" || pathname === "/contacto-patrocinio"
+      ? "text-yellow-300"
+      : "text-black";
 
   // Función para generar enlaces dinámicos
   const getLinkHref = (item: NavItem): string => {
