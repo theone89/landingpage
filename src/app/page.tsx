@@ -16,7 +16,6 @@ export default function Home() {
       <Header />
       <Services />
       {/*  <Mission />
-      <Team />
       <Branches />
       <News />
       <Timeline />` */}

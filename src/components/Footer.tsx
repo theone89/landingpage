@@ -19,9 +19,8 @@ export default function Footer() {
           <div>
             <h3 className="text-2xl font-bold mb-4">Sobre Nosotros</h3>
             <p className="mb-4">
-              [Nombre de la Empresa] es líder en soluciones empresariales,
-              comprometida con la innovación y la excelencia en el servicio al
-              cliente.
+              StrongFreeCode es líder en soluciones empresariales, comprometida
+              con la innovación y la excelencia en el servicio al cliente.
             </p>
             <p>Dirección: Calle Ejemplo, 123, 28001 Madrid, España</p>
             <p>Teléfono: +34 91 123 45 67</p>
@@ -82,8 +81,8 @@ export default function Footer() {
         </div>
         <div className="text-center mt-8">
           <p>
-            &copy; {new Date().getFullYear()} [Nombre de la Empresa]. Todos los
-            derechos reservados.
+            &copy; {new Date().getFullYear()} StrongFreeCode. Todos los derechos
+            reservados.
           </p>
         </div>
       </div>
