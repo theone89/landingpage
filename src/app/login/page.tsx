@@ -1,4 +1,4 @@
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 import UserAvatar from "@/components/UserAvatar";
 
 export default function LoginPage() {
@@ -14,6 +14,17 @@ export default function LoginPage() {
         <UserAvatar />
 
         <button type="submit">Signin with Google</button>
+      </form>
+      <form
+        className="relative flex flex-col items-center justify-center"
+        action={async () => {
+          "use server";
+          await signOut();
+        }}
+      >
+        <button type="submit" className="text-red-500">
+          logout
+        </button>
       </form>
     </div>
   );
