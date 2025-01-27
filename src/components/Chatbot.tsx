@@ -1,4 +1,4 @@
-// components/Chatbot.jsx
+// components/Chatbot.tsx
 "use client"; // Marca el componente como del lado del cliente
 import { useState, useEffect } from "react"; // Importamos useEffect
 import { useChat } from "ai/react";
@@ -6,14 +6,22 @@ import Image from "next/image";
 import { User, X } from "lucide-react"; // Importamos el ícono de cerrar (X)
 import { motion, AnimatePresence } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
+import { useSession, signIn } from "next-auth/react"; // Importamos useSession y signIn
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false); // Estado para controlar si el chat está abierto
   const [isShaking, setIsShaking] = useState(false); // Estado para controlar la animación de agitación
   const [showInvitation, setShowInvitation] = useState(true); // Estado para controlar la visibilidad del globo de chat
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: "/api/chat",
-  });
+  const { messages, input, handleInputChange, handleSubmit, setMessages } =
+    useChat({
+      api: "/api/chat",
+    });
+  const { data: session } = useSession(); // Obtenemos la sesión del usuario
+
+  // Función para generar un ID único
+  const generateUniqueId = () => {
+    return `message-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  };
 
   // Efecto para cargar la preferencia del usuario desde localStorage
   useEffect(() => {
@@ -22,6 +30,40 @@ export default function Chatbot() {
       setShowInvitation(false); // Ocultar el globo de chat si el usuario lo cerró antes
     }
   }, []);
+
+  // Efecto para manejar mensajes de bienvenida o login
+  useEffect(() => {
+    if (isOpen) {
+      if (session) {
+        // Si el usuario está logueado, muestra un mensaje de bienvenida
+        const welcomeMessage = {
+          id: generateUniqueId(), // Usar un ID único
+          role: "system",
+          content: `¡Bienvenido de nuevo, ${
+            session.user?.name || "usuario"
+          }! ¿En qué puedo ayudarte hoy?`,
+        };
+        setMessages((prevMessages) => [welcomeMessage, ...prevMessages]);
+      } else {
+        // Si el usuario no está logueado, invítalo a loguearse
+        const loginMessage = {
+          id: generateUniqueId(), // Usar un ID único
+          role: "system",
+          content: "¡Hola! Por favor, inicia sesión para continuar.",
+        };
+        setMessages((prevMessages) => [loginMessage, ...prevMessages]);
+      }
+    }
+  }, [isOpen, session, setMessages]);
+
+  // Limpiar mensajes de sistema al cerrar el chat
+  useEffect(() => {
+    if (!isOpen) {
+      setMessages((prevMessages) =>
+        prevMessages.filter((message) => message.role !== "system")
+      );
+    }
+  }, [isOpen, setMessages]);
 
   // Función para ocultar el globo de chat y guardar la preferencia en localStorage
   const handleCloseInvitation = () => {
@@ -209,7 +251,7 @@ export default function Chatbot() {
                         width={25}
                         height={25}
                         quality={100}
-                        src={"/assets/images/SFC StrongFreeCode (light).jpg"}
+                        src={"/SFC-logo.svg"}
                         className="rounded-full"
                       />
                     )}
@@ -227,6 +269,18 @@ export default function Chatbot() {
                   </div>
                 </div>
               ))}
+
+              {/* Mostrar botón de login si el usuario no está logueado */}
+              {!session && (
+                <div className="flex justify-center mt-4">
+                  <button
+                    onClick={() => signIn()}
+                    className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    Iniciar sesión
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Formulario de entrada */}
@@ -240,11 +294,13 @@ export default function Chatbot() {
                 onChange={handleInputChange}
                 placeholder="Escribe tu mensaje..."
                 className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                disabled={!session} // Deshabilitar el input si no hay sesión
               />
 
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                disabled={!session} // Deshabilitar el botón si no hay sesión
               >
                 Enviar
               </button>
