@@ -17,7 +17,6 @@ export const metadata: Metadata = {
   icons: {
     icon: "/sfc.svg",
   },
-
   description:
     "Innovación y Creatividad en Cada Click En Strong Free Code, nos dedicamos a transformar tus ideas en realidad digital. Asistencia tecnica y assesoria online ,publicidad y marketing digital",
   keywords: [
@@ -126,6 +125,30 @@ export const metadata: Metadata = {
     "Wireframing",
     "Prototipado",
   ],
+  openGraph: {
+    title: "StrongFreeCode | Desarrollo, Programación, Seo y Asistencia IT",
+    description:
+      "Innovación y Creatividad en Cada Click En Strong Free Code, nos dedicamos a transformar tus ideas en realidad digital. Asistencia tecnica y assesoria online ,publicidad y marketing digital",
+    url: "https://www.strongfreecode.com", // Reemplaza con la URL de tu sitio
+    siteName: "StrongFreeCode",
+    images: [
+      {
+        url: "/og-sfc.png", // Reemplaza con la URL de tu imagen OG
+        width: 1200,
+        height: 630,
+        alt: "StrongFreeCode - Innovación y Creatividad en Cada Click",
+      },
+    ],
+    locale: "es_ES",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "StrongFreeCode | Desarrollo, Programación, Seo y Asistencia IT",
+    description:
+      "Innovación y Creatividad en Cada Click En Strong Free Code, nos dedicamos a transformar tus ideas en realidad digital. Asistencia tecnica y assesoria online ,publicidad y marketing digital",
+    images: ["/og-sfc.png"], // Reemplaza con la URL de tu imagen OG
+  },
 };
 
 export default function RootLayout({
