@@ -7,6 +7,8 @@ import ScrollToTop from "@/components/ScrollToTop";
 import Chatbot from "@/components/Chatbot";
 import Background from "@/components/Background";
 import ClientLoadingWrapper from "@/components/ClientLoadingWrapper";
+import { SessionProvider } from "next-auth/react";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -133,14 +135,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
+      <Head>
+        <script
+          src="https://accounts.google.com/gsi/client"
+          async
+          defer
+        ></script>
+      </Head>
       <body className={`${inter.className} `}>
         <ClientLoadingWrapper>
-          <Background />
-          <Navbar />
-          <Chatbot />
-          {children}
-          <ScrollToTop />
-          <Footer />
+          <SessionProvider>
+            <Background />
+            <Navbar />
+            <Chatbot />
+            {children}
+            <ScrollToTop />
+            <Footer />
+          </SessionProvider>
         </ClientLoadingWrapper>
       </body>
     </html>

@@ -4,7 +4,9 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import SfcLogo from "./SfcLogo"; // Importar el componente SVG
+import { useSession, signIn } from "next-auth/react"; // Importar useSession y signIn
+import SfcLogo from "./SfcLogo";
+import UserPanel from "./UserPanel";
 
 type NavItem =
   | { name: string; path: string }
@@ -14,6 +16,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { data: session } = useSession(); // Obtener la sesión del usuario
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,7 +44,11 @@ export default function Navbar() {
   ];
 
   const linkColor =
-    pathname === "/" || pathname === "/contacto-patrocinio"
+    pathname === "/" ||
+    pathname === "/contacto-patrocinio" ||
+    pathname === "/login" ||
+    pathname === "/register" ||
+    pathname === "/recuperar-contrasena"
       ? "text-yellow-300 hover:text-zaffre-900 "
       : "text-black hover:text-grape-500 ";
 
@@ -69,18 +76,21 @@ export default function Navbar() {
           >
             <SfcLogo
               color={
-                pathname === "/" || pathname === "/contacto-patrocinio"
+                pathname === "/" ||
+                pathname === "/contacto-patrocinio" ||
+                pathname === "/login" ||
+                pathname === "/register" ||
+                pathname === "/recuperar-contrasena"
                   ? "yellow"
                   : "black"
               }
               className={`w-8 h-8`}
             />{" "}
-            {/* Usar el componente SVG */}
             StrongFreeCode
           </Link>
 
           {/* Menú de escritorio */}
-          <div className="hidden md:flex space-x-4">
+          <div className="hidden md:flex items-center space-x-4">
             {navItems.map((item) => (
               <Link
                 key={item.name}
@@ -90,6 +100,19 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
+            {/* Mostrar UserPanel si está autenticado, o botón de login si no lo está */}
+            {session ? (
+              <div className="ml-4">
+                <UserPanel />
+              </div>
+            ) : (
+              <Link
+                href={"/login"}
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors duration-300"
+              >
+                Iniciar Sesión
+              </Link>
+            )}
           </div>
 
           {/* Botón del menú móvil */}
@@ -115,6 +138,19 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
+            {/* Mostrar UserPanel si está autenticado, o botón de login si no lo está */}
+            {session ? (
+              <div className="py-2 px-4">
+                <UserPanel />
+              </div>
+            ) : (
+              <button
+                onClick={() => signIn()} // Redirigir al usuario a la página de login
+                className="w-full text-left py-2 px-4 hover:bg-zaffre-900 hover:text-white transition-colors duration-300"
+              >
+                Iniciar Sesión
+              </button>
+            )}
           </div>
         )}
       </div>

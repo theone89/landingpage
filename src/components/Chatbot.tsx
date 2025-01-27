@@ -1,4 +1,4 @@
-// components/Chatbot.jsx
+// components/Chatbot.tsx
 "use client"; // Marca el componente como del lado del cliente
 import { useState, useEffect } from "react"; // Importamos useEffect
 import { useChat } from "ai/react";
@@ -6,14 +6,23 @@ import Image from "next/image";
 import { User, X } from "lucide-react"; // Importamos el ícono de cerrar (X)
 import { motion, AnimatePresence } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
+import { useSession } from "next-auth/react"; // Importamos useSession y signIn
+import Link from "next/link";
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false); // Estado para controlar si el chat está abierto
   const [isShaking, setIsShaking] = useState(false); // Estado para controlar la animación de agitación
   const [showInvitation, setShowInvitation] = useState(true); // Estado para controlar la visibilidad del globo de chat
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: "/api/chat",
-  });
+  const { messages, input, handleInputChange, handleSubmit, setMessages } =
+    useChat({
+      api: "/api/chat",
+    });
+  const { data: session } = useSession(); // Obtenemos la sesión del usuario
+
+  // Función para generar un ID único
+  const generateUniqueId = () => {
+    return `message-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  };
 
   // Efecto para cargar la preferencia del usuario desde localStorage
   useEffect(() => {
@@ -22,6 +31,40 @@ export default function Chatbot() {
       setShowInvitation(false); // Ocultar el globo de chat si el usuario lo cerró antes
     }
   }, []);
+
+  // Efecto para manejar mensajes de bienvenida o login
+  useEffect(() => {
+    if (isOpen) {
+      if (session) {
+        // Si el usuario está logueado, muestra un mensaje de bienvenida
+        const welcomeMessage = {
+          id: generateUniqueId(), // Usar un ID único
+          role: "system" as const,
+          content: `¡Bienvenido de nuevo, ${
+            session.user?.name || "usuario"
+          }! ¿En qué puedo ayudarte hoy?`,
+        };
+        setMessages((prevMessages) => [welcomeMessage, ...prevMessages]);
+      } else {
+        // Si el usuario no está logueado, invítalo a loguearse
+        const loginMessage = {
+          id: generateUniqueId(), // Usar un ID único
+          role: "system" as const,
+          content: "¡Hola! Por favor, inicia sesión para continuar.",
+        };
+        setMessages((prevMessages) => [loginMessage, ...prevMessages]);
+      }
+    }
+  }, [isOpen, session, setMessages]);
+
+  // Limpiar mensajes de sistema al cerrar el chat
+  useEffect(() => {
+    if (!isOpen) {
+      setMessages((prevMessages) =>
+        prevMessages.filter((message) => message.role !== "system")
+      );
+    }
+  }, [isOpen, setMessages]);
 
   // Función para ocultar el globo de chat y guardar la preferencia en localStorage
   const handleCloseInvitation = () => {
@@ -139,7 +182,7 @@ export default function Chatbot() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed bottom-0 right-6 w-96 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden"
+            className="fixed bottom-0 mt-4 right-6 w-96 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden"
             variants={chatContainerVariants}
             initial="hidden"
             animate="visible"
@@ -157,7 +200,7 @@ export default function Chatbot() {
                 width={30}
                 height={30}
                 quality={100}
-                src={"/assets/images/SFC StrongFreeCode (light).jpg"}
+                src={"/SFC-logo.svg"}
                 className="rounded-full"
               />
               <h2 className="text-lg font-semibold">Chat de Soporte</h2>
@@ -183,7 +226,15 @@ export default function Chatbot() {
             </div>
 
             {/* Contenedor de mensajes */}
-            <div className="h-[calc(100%-8rem)] overflow-y-auto p-4 bg-gray-50">
+            <div
+              className="h-[calc(100%-8rem)] overflow-y-auto p-4 bg-gray-50"
+              style={{
+                backgroundImage: `url('/assets/images/sfcnew/sfc_new.png')`,
+                backgroundSize: "cover", // Ajusta el tamaño para que cubra todo el contenedor
+                backgroundPosition: "center", // Centra la imagen
+                backgroundRepeat: "no-repeat", // Evita que se repita
+              }}
+            >
               {messages.map((message) => (
                 <div
                   key={message.id}
@@ -194,17 +245,14 @@ export default function Chatbot() {
                   {/* Ícono */}
                   <div className="flex items-center justify-center mb-1">
                     {message.role === "user" ? (
-                      <User
-                        className="h-6 w-6 border border-blue-500
-                        text-blue-500 rounded-full"
-                      /> // Ícono del usuario
+                      <User className="h-6 w-6 border border-blue-500 text-blue-500 rounded-full" /> // Ícono del usuario
                     ) : (
                       <Image
                         alt="sfc_imagen"
                         width={25}
                         height={25}
                         quality={100}
-                        src={"/assets/images/SFC StrongFreeCode (light).jpg"}
+                        src={"/SFC-logo.svg"}
                         className="rounded-full"
                       />
                     )}
@@ -222,6 +270,18 @@ export default function Chatbot() {
                   </div>
                 </div>
               ))}
+
+              {/* Mostrar botón de login si el usuario no está logueado */}
+              {!session && (
+                <div className="flex justify-center mt-4">
+                  <Link
+                    href={"/login"}
+                    className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    Iniciar sesión
+                  </Link>
+                </div>
+              )}
             </div>
 
             {/* Formulario de entrada */}
@@ -235,10 +295,13 @@ export default function Chatbot() {
                 onChange={handleInputChange}
                 placeholder="Escribe tu mensaje..."
                 className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                disabled={!session} // Deshabilitar el input si no hay sesión
               />
+
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                disabled={!session} // Deshabilitar el botón si no hay sesión
               >
                 Enviar
               </button>
