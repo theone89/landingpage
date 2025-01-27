@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^1.1.1",
+    "@auth/core": "^0.37.4",
     "@heroicons/react": "2.2.0",
     "@tsparticles/engine": "3.7.1",
     "@tsparticles/react": "3.0.0",
@@ -22,6 +23,7 @@
     "leaflet-defaulticon-compatibility": "0.1.2",
     "lucide-react": "0.473.0",
     "next": "15.1.5",
+    "next-auth": "^5.0.0-beta.25",
     "node-telegram-bot-api": "^0.66.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
