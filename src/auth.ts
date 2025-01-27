@@ -67,9 +67,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         return false;
       }
     },
-    async redirect({ baseUrl }) {
-      // Redirigir al usuario a la ruta '/' después de iniciar sesión
-      return `${baseUrl}/`;
-    },
   },
 });
