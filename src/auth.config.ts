@@ -11,12 +11,12 @@ export const authConfig: NextAuthConfig = {
 
       if (isOnDashboard) {
         if (isLoggedIn) return true;
-        return false; // Redirige a la página de inicio de sesión
+        return false;
       } else if (isLoggedIn) {
         return Response.redirect(new URL("/dashboard", nextUrl));
       }
       return true;
     },
   },
-  providers: [], // Los proveedores se añaden en `auth.ts`
+  providers: [],
 };

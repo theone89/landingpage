@@ -9,7 +9,7 @@ const supabase = createClient(
 );
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  debug: true, // Habilitar modo de depuración
+  debug: false,
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,

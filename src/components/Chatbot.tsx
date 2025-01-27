@@ -139,7 +139,7 @@ export default function Chatbot() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed bottom-0 right-6 w-96 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden"
+            className="fixed bottom-0 mt-4 right-6 w-96 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden"
             variants={chatContainerVariants}
             initial="hidden"
             animate="visible"
@@ -157,7 +157,7 @@ export default function Chatbot() {
                 width={30}
                 height={30}
                 quality={100}
-                src={"/assets/images/SFC StrongFreeCode (light).jpg"}
+                src={"/SFC-logo.svg"}
                 className="rounded-full"
               />
               <h2 className="text-lg font-semibold">Chat de Soporte</h2>
@@ -183,7 +183,15 @@ export default function Chatbot() {
             </div>
 
             {/* Contenedor de mensajes */}
-            <div className="h-[calc(100%-8rem)] overflow-y-auto p-4 bg-gray-50">
+            <div
+              className="h-[calc(100%-8rem)] overflow-y-auto p-4 bg-gray-50"
+              style={{
+                backgroundImage: `url('/assets/images/sfcnew/sfc_new.png')`,
+                backgroundSize: "cover", // Ajusta el tamaño para que cubra todo el contenedor
+                backgroundPosition: "center", // Centra la imagen
+                backgroundRepeat: "no-repeat", // Evita que se repita
+              }}
+            >
               {messages.map((message) => (
                 <div
                   key={message.id}
@@ -194,10 +202,7 @@ export default function Chatbot() {
                   {/* Ícono */}
                   <div className="flex items-center justify-center mb-1">
                     {message.role === "user" ? (
-                      <User
-                        className="h-6 w-6 border border-blue-500
-                        text-blue-500 rounded-full"
-                      /> // Ícono del usuario
+                      <User className="h-6 w-6 border border-blue-500 text-blue-500 rounded-full" /> // Ícono del usuario
                     ) : (
                       <Image
                         alt="sfc_imagen"
@@ -236,6 +241,7 @@ export default function Chatbot() {
                 placeholder="Escribe tu mensaje..."
                 className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
+
               <button
                 type="submit"
                 className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
