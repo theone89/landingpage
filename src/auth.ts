@@ -2,12 +2,20 @@ import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import { createClient } from "@supabase/supabase-js";
 
-// Configura el cliente de Supabase
-const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_ANON_KEY!
-);
+// Determina si estamos en producción
+const isProduction = process.env.NODE_ENV === "production";
 
+// Configura las variables de entorno según el entorno
+const supabaseUrl = isProduction
+  ? process.env.SUPABASE_URL!
+  : process.env.NEXT_PUBLIC_SUPABASE_URL!;
+
+const supabaseAnonKey = isProduction
+  ? process.env.SUPABASE_ANON_KEY!
+  : process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+// Configura el cliente de Supabase
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 export const { handlers, signIn, signOut, auth } = NextAuth({
   debug: false,
   providers: [
@@ -58,6 +66,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         console.error("Error en el callback signIn:", error);
         return false;
       }
+    },
+    async redirect({ baseUrl }) {
+      // Redirigir al usuario a la ruta '/' después de iniciar sesión
+      return `${baseUrl}/`;
     },
   },
 });

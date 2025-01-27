@@ -1,8 +1,25 @@
 "use client";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation"; // Importa useRouter
 
 const LoginPage = () => {
+  const router = useRouter(); // Obtén el objeto router
+
+  const handleSignIn = async () => {
+    const result = await signIn("google", {
+      redirect: false, // Evita la redirección automática
+    });
+
+    if (result?.error) {
+      // Manejar errores (opcional)
+      console.error("Error al iniciar sesión:", result.error);
+    } else {
+      // Redirigir al usuario a la ruta '/'
+      router.push("/");
+    }
+  };
+
   return (
     <div className="relative min-h-screen">
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-2xl shadow-lg max-w-sm w-full">
@@ -21,7 +38,7 @@ const LoginPage = () => {
         </h1>
         <p className="text-gray-600 text-center mb-6">Sign in to continue</p>
         <button
-          onClick={() => signIn("google")}
+          onClick={handleSignIn} // Usa la función handleSignIn
           className="w-full py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition duration-200"
         >
           Sign in with Google
