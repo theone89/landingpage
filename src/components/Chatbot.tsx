@@ -6,7 +6,8 @@ import Image from "next/image";
 import { User, X } from "lucide-react"; // Importamos el ícono de cerrar (X)
 import { motion, AnimatePresence } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
-import { useSession, signIn } from "next-auth/react"; // Importamos useSession y signIn
+import { useSession } from "next-auth/react"; // Importamos useSession y signIn
+import Link from "next/link";
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false); // Estado para controlar si el chat está abierto
@@ -38,7 +39,7 @@ export default function Chatbot() {
         // Si el usuario está logueado, muestra un mensaje de bienvenida
         const welcomeMessage = {
           id: generateUniqueId(), // Usar un ID único
-          role: "system",
+          role: "system" as const,
           content: `¡Bienvenido de nuevo, ${
             session.user?.name || "usuario"
           }! ¿En qué puedo ayudarte hoy?`,
@@ -48,7 +49,7 @@ export default function Chatbot() {
         // Si el usuario no está logueado, invítalo a loguearse
         const loginMessage = {
           id: generateUniqueId(), // Usar un ID único
-          role: "system",
+          role: "system" as const,
           content: "¡Hola! Por favor, inicia sesión para continuar.",
         };
         setMessages((prevMessages) => [loginMessage, ...prevMessages]);
@@ -273,12 +274,12 @@ export default function Chatbot() {
               {/* Mostrar botón de login si el usuario no está logueado */}
               {!session && (
                 <div className="flex justify-center mt-4">
-                  <button
-                    onClick={() => signIn()}
+                  <Link
+                    href={"/login"}
                     className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     Iniciar sesión
-                  </button>
+                  </Link>
                 </div>
               )}
             </div>

@@ -44,7 +44,11 @@ export default function Navbar() {
   ];
 
   const linkColor =
-    pathname === "/" || pathname === "/contacto-patrocinio"
+    pathname === "/" ||
+    pathname === "/contacto-patrocinio" ||
+    pathname === "/login" ||
+    pathname === "/register" ||
+    pathname === "/recuperar-contrasena"
       ? "text-yellow-300 hover:text-zaffre-900 "
       : "text-black hover:text-grape-500 ";
 
@@ -72,7 +76,11 @@ export default function Navbar() {
           >
             <SfcLogo
               color={
-                pathname === "/" || pathname === "/contacto-patrocinio"
+                pathname === "/" ||
+                pathname === "/contacto-patrocinio" ||
+                pathname === "/login" ||
+                pathname === "/register" ||
+                pathname === "/recuperar-contrasena"
                   ? "yellow"
                   : "black"
               }
@@ -98,12 +106,12 @@ export default function Navbar() {
                 <UserPanel />
               </div>
             ) : (
-              <button
-                onClick={() => signIn()} // Redirigir al usuario a la página de login
+              <Link
+                href={"/login"}
                 className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors duration-300"
               >
                 Iniciar Sesión
-              </button>
+              </Link>
             )}
           </div>
 

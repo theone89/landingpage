@@ -1,31 +1,34 @@
-import { signIn, signOut } from "@/auth";
-import UserAvatar from "@/components/UserAvatar";
+"use client";
+import { signIn } from "next-auth/react";
+import Image from "next/image";
 
-export default function LoginPage() {
+const LoginPage = () => {
   return (
-    <div className="h-screen flex items-center justify-center">
-      <form
-        className="relative flex flex-col items-center justify-center"
-        action={async () => {
-          "use server";
-          await signIn();
-        }}
-      >
-        <UserAvatar />
-
-        <button type="submit">Signin with Google</button>
-      </form>
-      <form
-        className="relative flex flex-col items-center justify-center"
-        action={async () => {
-          "use server";
-          await signOut();
-        }}
-      >
-        <button type="submit" className="text-red-500">
-          logout
+    <div className="relative min-h-screen">
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-2xl shadow-lg max-w-sm w-full">
+        {/* Imagen en la parte superior de la tarjeta */}
+        <Image
+          src="/SFC-logo.svg"
+          alt="Login Image"
+          className="w-full h-24 object-center rounded-t-2xl mb-0"
+          width={50}
+          height={200}
+          quality={100}
+        />
+        <p className="text-center">StrongFreeCode</p>
+        <h1 className="text-2xl font-bold text-center text-gray-800 mb-4">
+          Welcome Back
+        </h1>
+        <p className="text-gray-600 text-center mb-6">Sign in to continue</p>
+        <button
+          onClick={() => signIn("google")}
+          className="w-full py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition duration-200"
+        >
+          Sign in with Google
         </button>
-      </form>
+      </div>
     </div>
   );
-}
+};
+
+export default LoginPage;
