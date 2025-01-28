@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Settings } from "lucide-react"; // Importa el ícono de engranaje
+import { Menu, X } from "lucide-react"; // Importa el ícono de engranaje
 import SfcLogo from "./SfcLogo";
 import UserPanel from "./UserPanel";
 import { useSession } from "next-auth/react";
@@ -50,7 +50,7 @@ export default function Navbar() {
     pathname === "/register" ||
     pathname === "/recuperar-contrasena"
       ? "text-yellow-300 hover:text-zaffre-900 "
-      : "text-black hover:text-grape-500 ";
+      : "text-yellow-300 hover:text-grape-500 ";
 
   const getLinkHref = (item: NavItem): string => {
     if ("path" in item) {
@@ -69,7 +69,6 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
-          {/* Logo */}
           <Link
             href="/"
             className={`text-2xl font-bold ${linkColor} flex justify-between gap-1 transition-colors duration-300`}
@@ -82,14 +81,13 @@ export default function Navbar() {
                 pathname === "/register" ||
                 pathname === "/recuperar-contrasena"
                   ? "yellow"
-                  : "black"
+                  : "yellow"
               }
               className={`w-8 h-8`}
-            />{" "}
+            />
             StrongFreeCode
           </Link>
 
-          {/* Menú de escritorio */}
           <div className="hidden md:flex items-center space-x-4">
             {navItems.map((item) => (
               <Link
@@ -102,9 +100,7 @@ export default function Navbar() {
             ))}
             {/* Mostrar UserPanel si está autenticado, o botón de login si no lo está */}
             {session ? (
-              <div className="ml-4">
-                <UserPanel />
-              </div>
+              <div className="ml-4">{/*   <UserPanel /> */}</div>
             ) : (
               <Link
                 href={"/login"}
@@ -118,12 +114,7 @@ export default function Navbar() {
           {/* Ícono de engranaje en vista móvil (solo para usuarios logueados) */}
           {session && (
             <div className="md:hidden flex items-center">
-              <Link
-                href="/perfil" // Cambia esto por la ruta de gestión de perfil
-                className="text-grape-900 hover:text-grape-700 transition-colors duration-300"
-              >
-                <Settings size={24} /> {/* Ícono de engranaje */}
-              </Link>
+              <UserPanel />
             </div>
           )}
 
@@ -153,7 +144,9 @@ export default function Navbar() {
             {/* Mostrar UserPanel si está autenticado, o botón de login si no lo está */}
             {session ? (
               <div className="py-2 px-4">
-                <UserPanel />
+                <p className="text-center text-yellow-500">
+                  {session.user?.name}
+                </p>
               </div>
             ) : (
               <Link

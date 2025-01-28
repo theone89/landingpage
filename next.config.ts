@@ -4,16 +4,20 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https", // Especifica el protocolo (http o https)
-        hostname: "via.placeholder.com", // Dominio permitido
+        protocol: "https",
+        hostname: "via.placeholder.com",
       },
       {
         protocol: "https",
-        hostname: "wonderfulltime.com", // Dominio permitido
+        hostname: "wonderfulltime.com",
       },
       {
         protocol: "https",
-        hostname: "lh3.googleusercontent.com", // Dominio permitido
+        hostname: "lh3.googleusercontent.com",
+      },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
       },
     ],
   },
