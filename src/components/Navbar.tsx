@@ -123,7 +123,7 @@ export default function Navbar() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.3 }}
-                      className="absolute right-0  bg-white shadow-lg rounded-lg  w-48 z-10"
+                      className="absolute right-0   bg-grape-600 shadow-lg rounded-lg  w-48 z-10"
                     >
                       <ul className="space-y-2">
                         <li>
