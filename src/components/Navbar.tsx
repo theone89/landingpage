@@ -3,15 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  ChevronDown,
-  LogIn,
-  Menu,
-  Phone,
-  User,
-  UserPlus,
-  X,
-} from "lucide-react"; // Importa el ícono de engranaje
+import { LogIn, Menu, Phone, User, UserPlus, X } from "lucide-react"; // Importa el ícono de engranaje
 import SfcLogo from "./SfcLogo";
 import UserPanel from "./UserPanel";
 import { useSession } from "next-auth/react";
