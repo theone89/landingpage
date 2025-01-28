@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react"; // Importa el ícono de engranaje
+import { LogIn, Menu, Phone, User, UserPlus, X } from "lucide-react"; // Importa el ícono de engranaje
 import SfcLogo from "./SfcLogo";
 import UserPanel from "./UserPanel";
 import { useSession } from "next-auth/react";
+import { motion, AnimatePresence } from "framer-motion";
 
 type NavItem =
   | { name: string; path: string }
@@ -17,6 +18,9 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const { data: session } = useSession(); // Obtener la sesión del usuario
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => setIsOpen(!isOpen);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -100,14 +104,59 @@ export default function Navbar() {
             ))}
             {/* Mostrar UserPanel si está autenticado, o botón de login si no lo está */}
             {session ? (
-              <div className="ml-4">{/*   <UserPanel /> */}</div>
+              <div className="ml-4">
+                <UserPanel />
+              </div>
             ) : (
-              <Link
-                href={"/login"}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors duration-300"
-              >
-                Iniciar Sesión
-              </Link>
+              <div className="relative">
+                <button
+                  onClick={toggleDropdown}
+                  className="px-4 py-2 text-yellow-300 hover:text-zaffre-900 transition-colors duration-300 flex items-center"
+                >
+                  <User className="ml-2" />
+                </button>
+
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute right-0   bg-grape-600 shadow-lg rounded-lg  w-48 z-10"
+                    >
+                      <ul className="space-y-2">
+                        <li>
+                          <Link
+                            href="/login"
+                            className="w-full flex items-center text-left p-2 hover:bg-gray-100 rounded"
+                          >
+                            <LogIn className="mr-2" size={18} /> Iniciar Sesión
+                          </Link>
+                        </li>
+
+                        <li>
+                          <Link
+                            href="/register"
+                            className="w-full flex items-center text-left p-2 hover:bg-gray-100 rounded"
+                          >
+                            <UserPlus className="mr-2" size={18} /> Registrarse
+                          </Link>
+                        </li>
+
+                        <li>
+                          <Link
+                            href="/contact"
+                            className="w-full flex items-center text-left p-2 hover:bg-gray-100 rounded"
+                          >
+                            <Phone className="mr-2" size={18} /> Contáctenos
+                          </Link>
+                        </li>
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             )}
           </div>
 
