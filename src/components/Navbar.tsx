@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Settings } from "lucide-react"; // Importa el ícono de engranaje
 import SfcLogo from "./SfcLogo";
 import UserPanel from "./UserPanel";
 import { useSession } from "next-auth/react";
@@ -115,6 +115,18 @@ export default function Navbar() {
             )}
           </div>
 
+          {/* Ícono de engranaje en vista móvil (solo para usuarios logueados) */}
+          {session && (
+            <div className="md:hidden flex items-center">
+              <Link
+                href="/perfil" // Cambia esto por la ruta de gestión de perfil
+                className="text-grape-900 hover:text-grape-700 transition-colors duration-300"
+              >
+                <Settings size={24} /> {/* Ícono de engranaje */}
+              </Link>
+            </div>
+          )}
+
           {/* Botón del menú móvil */}
           <button
             className="md:hidden text-grape-900 focus:outline-none"
@@ -147,8 +159,7 @@ export default function Navbar() {
               <Link
                 href={"/login"}
                 onClick={closeMenu}
-                className="block py-2 px-4 bg-blue-600 text-center
-                 text-white hover:bg-blue-700 transition-colors duration-300 rounded-md"
+                className="block py-2 px-4 bg-blue-600 text-center text-white hover:bg-blue-700 transition-colors duration-300 rounded-md"
               >
                 Iniciar Sesión
               </Link>
