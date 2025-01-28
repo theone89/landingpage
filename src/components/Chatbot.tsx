@@ -72,6 +72,11 @@ export default function Chatbot() {
     localStorage.setItem("isInvitationHidden", "true"); // Guardar la preferencia del usuario
   };
 
+  // Función para cerrar el chat
+  const handleCloseChat = () => {
+    setIsOpen(false);
+  };
+
   // Animaciones
   const chatButtonVariants = {
     initial: { scale: 1, rotate: 0 }, // Estado inicial
@@ -276,6 +281,7 @@ export default function Chatbot() {
                 <div className="flex justify-center mt-4">
                   <Link
                     href={"/login"}
+                    onClick={handleCloseChat} // Cerrar el chat al hacer clic en el botón de inicio de sesión
                     className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     Iniciar sesión
