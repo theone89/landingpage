@@ -1,7 +1,8 @@
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Team() {
-  const team = [
+  const [team, setTeam] = useState([
     {
       name: "Franklin Campos Alvarez",
       position: "CEO",
@@ -17,7 +18,36 @@ export default function Team() {
       position: "CFO",
       //image: "/placeholder.svg?height=200&width=200",
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    const fetchGithubMembers = async () => {
+      try {
+        const response = await fetch("/api/github/members");
+        console.log("Respuesta de la API:", response); // Depuración
+        if (!response.ok) {
+          throw new Error("Error al recuperar los miembros de GitHub");
+        }
+        const githubMembers = await response.json();
+        console.log("Miembros de GitHub:", githubMembers); // Depuración
+
+        const formattedGithubMembers = githubMembers.map(
+          (member: { login: string; avatar_url: string }) => ({
+            name: member.login,
+            position: "GitHub Member",
+            image: member.avatar_url,
+          })
+        );
+        console.log("Miembros formateados:", formattedGithubMembers); // Depuración
+
+        setTeam((prevTeam) => [...prevTeam, ...formattedGithubMembers]);
+      } catch (error) {
+        console.error("Error fetching GitHub members:", error);
+      }
+    };
+
+    fetchGithubMembers();
+  }, []);
 
   return (
     <section id="equipo" className="py-20 px-4 relative">
