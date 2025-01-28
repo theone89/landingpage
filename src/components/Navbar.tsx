@@ -145,8 +145,10 @@ export default function Navbar() {
               </div>
             ) : (
               <Link
-                href={"/"}
-                className="w-full text-left py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700  hover:text-white transition-colors duration-300"
+                href={"/login"}
+                onClick={closeMenu}
+                className="block py-2 px-4 bg-blue-600 text-center
+                 text-white hover:bg-blue-700 transition-colors duration-300 rounded-md"
               >
                 Iniciar Sesión
               </Link>
