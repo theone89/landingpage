@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { useSession, signIn } from "next-auth/react"; // Importar useSession y signIn
 import SfcLogo from "./SfcLogo";
 import UserPanel from "./UserPanel";
+import { useSession } from "next-auth/react";
 
 type NavItem =
   | { name: string; path: string }
@@ -144,12 +144,12 @@ export default function Navbar() {
                 <UserPanel />
               </div>
             ) : (
-              <button
-                onClick={() => signIn()} // Redirigir al usuario a la página de login
-                className="w-full text-left py-2 px-4 hover:bg-zaffre-900 hover:text-white transition-colors duration-300"
+              <Link
+                href={"/"}
+                className="w-full text-left py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700  hover:text-white transition-colors duration-300"
               >
                 Iniciar Sesión
-              </button>
+              </Link>
             )}
           </div>
         )}
