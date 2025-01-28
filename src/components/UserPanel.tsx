@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Settings, Trash2, LogOut, X } from "lucide-react";
+import {
+  Settings,
+  Trash2,
+  LogOut,
+  X,
+  LogIn,
+  UserPlus,
+  Phone,
+} from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 
@@ -67,9 +75,19 @@ const UserPanel = () => {
     <div className="relative">
       <button
         onClick={() => setIsPanelOpen(!isPanelOpen)}
-        className="p-2 hover:bg-gray-100  rounded-full focus:outline-none"
+        className=" hover:bg-gray-100 rounded-full focus:outline-none"
       >
-        <Settings className="text-2xl text-yellow-300 hover:text-grape-500" />
+        {session ? (
+          <Image
+            src={session.user?.image as string}
+            alt={session.user?.name as string}
+            width={35}
+            height={35}
+            className="rounded-full"
+          />
+        ) : (
+          <Settings className="text-2xl text-yellow-300 hover:text-grape-500" />
+        )}
       </button>
 
       <AnimatePresence>
@@ -88,59 +106,87 @@ const UserPanel = () => {
               <X className="w-4 h-4" />
             </button>
 
-            {/* Foto y nombre del usuario */}
-            <div className="flex items-center mb-4">
-              {session && session.user && (
-                <>
-                  <Image
-                    src={session.user.image as string}
-                    alt={session.user.name as string}
-                    width={40}
-                    height={40}
-                    className="w-10 h-10 rounded-full mr-3"
-                  />
-                  <span className="font-semibold">{session.user.name}</span>
-                </>
+            {/* Saludo al usuario */}
+            <div className="mb-4">
+              {session ? (
+                <h2 className="text-lg font-semibold">
+                  ¡Hola, {session.user?.name}!
+                </h2>
+              ) : (
+                <h2 className="text-lg font-semibold">Bienvenido, invitado</h2>
               )}
             </div>
 
-            <h2 className="text-xl font-semibold mb-4">Panel de Usuario</h2>
             <ul className="space-y-2">
-              <li>
-                <button
-                  onClick={handleCookies}
-                  className="w-full flex items-center text-left p-2 hover:bg-gray-100 rounded"
-                >
-                  <Settings className="mr-2" size={18} /> Gestionar Cookies
-                </button>
-              </li>
+              {session ? (
+                <>
+                  <li>
+                    <button
+                      onClick={handleCookies}
+                      className="w-full flex items-center text-left p-2 hover:bg-gray-100 rounded"
+                    >
+                      <Settings className="mr-2" size={18} /> Gestionar Cookies
+                    </button>
+                  </li>
 
-              <li>
-                <button
-                  onClick={handleDeleteAccount}
-                  className="w-full flex items-center text-left p-2 hover:bg-gray-100 rounded text-red-500"
-                >
-                  <Trash2 className="mr-2" size={18} /> Eliminar Cuenta
-                </button>
-              </li>
+                  <li>
+                    <button
+                      onClick={handleDeleteAccount}
+                      className="w-full flex items-center text-left p-2 hover:bg-gray-100 rounded text-red-500"
+                    >
+                      <Trash2 className="mr-2" size={18} /> Eliminar Cuenta
+                    </button>
+                  </li>
 
-              <li>
-                <hr className="my-2 border-gray-200" />
-              </li>
+                  <li>
+                    <hr className="my-2 border-gray-200" />
+                  </li>
 
-              <li>
-                <button
-                  onClick={handleLogout}
-                  className="w-full flex items-center text-left p-2 hover:bg-gray-100 rounded"
-                >
-                  <LogOut className="mr-2" size={18} /> Cerrar Sesión
-                </button>
-              </li>
+                  <li>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center text-left p-2 hover:bg-gray-100 rounded"
+                    >
+                      <LogOut className="mr-2" size={18} /> Cerrar Sesión
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <button
+                      onClick={() => (window.location.href = "/login")}
+                      className="w-full flex items-center text-left p-2 hover:bg-gray-100 rounded"
+                    >
+                      <LogIn className="mr-2" size={18} /> Iniciar Sesión
+                    </button>
+                  </li>
+
+                  <li>
+                    <button
+                      onClick={() => (window.location.href = "/register")}
+                      className="w-full flex items-center text-left p-2 hover:bg-gray-100 rounded"
+                    >
+                      <UserPlus className="mr-2" size={18} /> Registrarse
+                    </button>
+                  </li>
+
+                  <li>
+                    <button
+                      onClick={() => (window.location.href = "/contact")}
+                      className="w-full flex items-center text-left p-2 hover:bg-gray-100 rounded"
+                    >
+                      <Phone className="mr-2" size={18} /> Contacto
+                    </button>
+                  </li>
+                </>
+              )}
             </ul>
           </motion.div>
         )}
       </AnimatePresence>
 
+      {/* Modal de Preferencias de Cookies */}
       <AnimatePresence>
         {showCookiesModal && (
           <motion.div
@@ -148,7 +194,7 @@ const UserPanel = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed mt-32 inset-0  bg-opacity-50 flex items-center justify-center z-50 p-4"
+            className="fixed mt-32 inset-0 bg-opacity-50 flex items-center justify-center z-50 p-4"
           >
             <motion.div
               initial={{ scale: 0.8 }}
