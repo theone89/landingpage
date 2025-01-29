@@ -1,29 +1,27 @@
 import { TypeAnimation } from "react-type-animation";
-
 const MessageHeader = () => {
   return (
-    <TypeAnimation
-      sequence={[
-        "Innovación y Creatividad.", // Types 'One'
-        1000, // Waits 1s
-        "Desarrollo web y marketing,\n todo en uno.", // Deletes 'One' and types 'Two'
-        2000, // Waits 2s
-        "Tu aliado tecnológico para\n crecer sin límites.",
-        3000, // Types 'Three' without deleting 'Two'
-        () => {
-          //console.log("Sequence completed");
-        },
-      ]}
-      wrapper="span"
-      cursor={true}
-      repeat={Infinity}
-      style={{
-        fontSize: "2em",
-        display: "inline-block",
-        whiteSpace: "pre-line",
-        lineHeight: "1.5em",
-      }}
-    />
+    <div className="w-full max-w-[90%] sm:max-w-[600px] mx-auto text-center px-4">
+      <TypeAnimation
+        sequence={[
+          "Innovación y Creatividad.",
+          1000,
+          "Desarrollo web y marketing,\n todo en uno.",
+          2000,
+          "Tu aliado tecnológico para\n crecer sin límites.",
+          3000,
+        ]}
+        wrapper="span"
+        cursor={true}
+        repeat={Infinity}
+        style={{
+          fontSize: "1.5em",
+          whiteSpace: "pre-line",
+          lineHeight: "1.5em",
+        }}
+      />
+    </div>
   );
 };
+
 export default MessageHeader;

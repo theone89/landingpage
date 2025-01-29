@@ -73,6 +73,7 @@ export default function Navbar() {
                 <li>
                   <Link
                     href="/login"
+                    onClick={toggleDropdown}
                     className="w-full flex items-center text-left p-2 hover:bg-grape-600 hover:text-white rounded-t-lg"
                   >
                     <LogIn className="mr-2" size={18} /> Iniciar Sesión
@@ -82,6 +83,7 @@ export default function Navbar() {
                 <li>
                   <Link
                     href="/register"
+                    onClick={toggleDropdown}
                     className="w-full flex items-center text-left p-2 hover:bg-grape-600 hover:text-white "
                   >
                     <UserPlus className="mr-2" size={18} /> Registrarse
@@ -91,6 +93,8 @@ export default function Navbar() {
                 <li>
                   <Link
                     href="https://wa.me/+522296110304"
+                    onClick={toggleDropdown}
+                    target="_blank"
                     className="w-full flex items-center text-left p-2 hover:bg-grape-600 hover:text-white rounded-b-lg"
                   >
                     <Phone className="mr-2" size={18} /> Contáctenos
