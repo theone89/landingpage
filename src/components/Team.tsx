@@ -72,7 +72,7 @@ export default function Team() {
         {visibleMembers.map((member, index) => (
           <div
             key={index}
-            className="text-center shadow-black p-6 rounded-lg shadow-md transform transition-transform hover:scale-105"
+            className="text-center  p-6 rounded-lg shadow-md transform transition-transform hover:scale-105"
           >
             <Image
               src={member.image || "/assets/images/sfcnew/sfc_new.png"}

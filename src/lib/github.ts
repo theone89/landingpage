@@ -13,13 +13,13 @@ export interface TeamMember {
 export async function fetchGithubMembers(): Promise<TeamMember[]> {
   try {
     const response = await fetch("/api/github/members");
-    console.log("Respuesta de la API:", response); // Depuración
+    //console.log("Respuesta de la API:", response); // Depuración
     if (!response.ok) {
       throw new Error("Error al recuperar los miembros de GitHub");
     }
 
     const githubMembers: GithubMember[] = await response.json();
-    console.log("Miembros de GitHub:", githubMembers); // Depuración
+    //console.log("Miembros de GitHub:", githubMembers); // Depuración
 
     return githubMembers.map((member) => ({
       name: member.login,

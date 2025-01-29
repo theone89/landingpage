@@ -47,6 +47,62 @@ export default function Navbar() {
     { name: "Contacto", section: "contacto" },
   ];
 
+  interface LoginButtonProps {
+    className?: string; // Propiedad opcional para la clase personalizada
+  }
+  const LoginButton: React.FC<LoginButtonProps> = ({ className }) => {
+    return (
+      <div className={`${className} relative`}>
+        <button
+          onClick={toggleDropdown}
+          className="px-4 py-2 text-yellow-300 hover:text-zaffre-900 transition-colors duration-300 flex items-center"
+        >
+          <User className="ml-2" />
+        </button>
+
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+              className="absolute right-0   bg-white shadow-lg rounded-lg  w-48 z-10"
+            >
+              <ul className="space-y-2">
+                <li>
+                  <Link
+                    href="/login"
+                    className="w-full flex items-center text-left p-2 hover:bg-grape-600 hover:text-white rounded-t-lg"
+                  >
+                    <LogIn className="mr-2" size={18} /> Iniciar Sesión
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    href="/register"
+                    className="w-full flex items-center text-left p-2 hover:bg-grape-600 hover:text-white "
+                  >
+                    <UserPlus className="mr-2" size={18} /> Registrarse
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    href="https://wa.me/+522296110304"
+                    className="w-full flex items-center text-left p-2 hover:bg-grape-600 hover:text-white rounded-b-lg"
+                  >
+                    <Phone className="mr-2" size={18} /> Contáctenos
+                  </Link>
+                </li>
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  };
   const linkColor =
     pathname === "/" ||
     pathname === "/contacto-patrocinio" ||
@@ -108,63 +164,17 @@ export default function Navbar() {
                 <UserPanel />
               </div>
             ) : (
-              <div className="relative">
-                <button
-                  onClick={toggleDropdown}
-                  className="px-4 py-2 text-yellow-300 hover:text-zaffre-900 transition-colors duration-300 flex items-center"
-                >
-                  <User className="ml-2" />
-                </button>
-
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.3 }}
-                      className="absolute right-0   bg-grape-600 shadow-lg rounded-lg  w-48 z-10"
-                    >
-                      <ul className="space-y-2">
-                        <li>
-                          <Link
-                            href="/login"
-                            className="w-full flex items-center text-left p-2 hover:bg-gray-100 rounded"
-                          >
-                            <LogIn className="mr-2" size={18} /> Iniciar Sesión
-                          </Link>
-                        </li>
-
-                        <li>
-                          <Link
-                            href="/register"
-                            className="w-full flex items-center text-left p-2 hover:bg-gray-100 rounded"
-                          >
-                            <UserPlus className="mr-2" size={18} /> Registrarse
-                          </Link>
-                        </li>
-
-                        <li>
-                          <Link
-                            href="/contact"
-                            className="w-full flex items-center text-left p-2 hover:bg-gray-100 rounded"
-                          >
-                            <Phone className="mr-2" size={18} /> Contáctenos
-                          </Link>
-                        </li>
-                      </ul>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+              <LoginButton />
             )}
           </div>
 
           {/* Ícono de engranaje en vista móvil (solo para usuarios logueados) */}
-          {session && (
+          {session ? (
             <div className="md:hidden flex items-center">
               <UserPanel />
             </div>
+          ) : (
+            <LoginButton className="md:hidden" />
           )}
 
           {/* Botón del menú móvil */}
@@ -191,20 +201,12 @@ export default function Navbar() {
               </Link>
             ))}
             {/* Mostrar UserPanel si está autenticado, o botón de login si no lo está */}
-            {session ? (
+            {session && (
               <div className="py-2 px-4">
                 <p className="text-center text-yellow-500">
                   {session.user?.name}
                 </p>
               </div>
-            ) : (
-              <Link
-                href={"/login"}
-                onClick={closeMenu}
-                className="block py-2 px-4 bg-blue-600 text-center text-white hover:bg-blue-700 transition-colors duration-300 rounded-md"
-              >
-                Iniciar Sesión
-              </Link>
             )}
           </div>
         )}
