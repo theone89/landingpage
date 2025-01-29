@@ -9,7 +9,7 @@ import Background from "@/components/Background";
 import ClientLoadingWrapper from "@/components/ClientLoadingWrapper";
 import { SessionProvider } from "next-auth/react";
 import Head from "next/head";
-
+import { GoogleTagManager } from "@next/third-parties/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -175,6 +175,7 @@ export default function RootLayout({
           defer
         ></script>
       </Head>
+      <GoogleTagManager gtmId="GTM-NQPTN3NZ" />
       <body className={`${inter.className} `}>
         <ClientLoadingWrapper>
           <SessionProvider>
