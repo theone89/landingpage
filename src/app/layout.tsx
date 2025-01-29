@@ -13,10 +13,20 @@ import Head from "next/head";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://strongfreecode.com",
+  },
   title: "StrongFreeCode | Desarrollo, Programación, Seo y Asistencia IT",
   icons: {
     icon: "/sfc.svg",
   },
+  publisher: "StronFreeCode",
+  authors: [
+    {
+      name: "Franklin Campos Alvares",
+      url: "https://www.linkedin.com/in/franklin-campos-alvarez-14b874140/",
+    },
+  ],
   description:
     "Innovación y Creatividad en Cada Click En Strong Free Code, nos dedicamos a transformar tus ideas en realidad digital. Asistencia tecnica y assesoria online ,publicidad y marketing digital",
   keywords: [
