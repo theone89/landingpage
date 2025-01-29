@@ -11,7 +11,7 @@ const MessageHeader = () => {
         "Tu aliado tecnológico para\n crecer sin límites.",
         3000, // Types 'Three' without deleting 'Two'
         () => {
-          console.log("Sequence completed");
+          //console.log("Sequence completed");
         },
       ]}
       wrapper="span"
