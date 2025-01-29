@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   title: "StrongFreeCode | Desarrollo, Programación, Seo y Asistencia IT",
   icons: {
-    icon: "/sfc.svg",
+    icon: "/SFC logo.png",
   },
   publisher: "StronFreeCode",
   authors: [
@@ -143,7 +143,7 @@ export const metadata: Metadata = {
     siteName: "StrongFreeCode",
     images: [
       {
-        url: "/og-sfc.png", // Reemplaza con la URL de tu imagen OG
+        url: "/og-sfc-all.png", // Reemplaza con la URL de tu imagen OG
         width: 1200,
         height: 630,
         alt: "StrongFreeCode - Innovación y Creatividad en Cada Click",
@@ -157,7 +157,7 @@ export const metadata: Metadata = {
     title: "StrongFreeCode | Desarrollo, Programación, Seo y Asistencia IT",
     description:
       "Innovación y Creatividad en Cada Click En Strong Free Code, nos dedicamos a transformar tus ideas en realidad digital. Asistencia tecnica y assesoria online ,publicidad y marketing digital",
-    images: ["/og-sfc.png"], // Reemplaza con la URL de tu imagen OG
+    images: ["/og-sfc-all.png"], // Reemplaza con la URL de tu imagen OG
   },
 };
 

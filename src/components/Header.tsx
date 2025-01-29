@@ -16,7 +16,7 @@ export default function Header() {
       <p className="text-xl md:text-2xl mb-8">
         Solucion IT al alcance de tus manos
       </p>
-      <div className="mb-24 h-24  text-xs md:text-md">
+      <div className="mb-24 h-24 w-full  text-xs md:text-md">
         <MessageHeader />
       </div>
       <Link
