@@ -174,6 +174,7 @@ export default function RootLayout({
           async
           defer
         ></script>
+        <meta name='impact-site-verification' value='919ac626-e0ee-413f-b846-30aec8496a5f' />
       </Head>
       <GoogleTagManager gtmId="GTM-NQPTN3NZ" />
       <body className={`${inter.className} `}>
