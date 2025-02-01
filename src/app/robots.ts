@@ -10,6 +10,5 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: "https://strongfreecode.com/sitemap.xml",
-    host: "https://strongfreecode.com",
   };
 }
