@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://strongfreecode.com/sitemap.xml
+Host: https://strongfreecode.com
