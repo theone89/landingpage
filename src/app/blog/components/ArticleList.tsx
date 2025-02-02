@@ -11,6 +11,7 @@ interface ArticleListProps {
   articles: Article[];
   selectedCategory?: string;
   selectedTag?: string;
+  selectedSubCategory?: string; // Agregado para filtrar por subcategoría
 }
 
 const containerVariants = {
@@ -27,7 +28,7 @@ const cardVariants = {
 };
 
 function useOutsideAlerter(
-  ref: React.RefObject<HTMLDivElement>,
+  ref: React.RefObject<HTMLDivElement | null>,
   callback: () => void
 ) {
   useEffect(() => {
@@ -49,16 +50,11 @@ interface ArticleCardProps {
 }
 
 function ArticleCard({ article, onClick }: ArticleCardProps) {
-  //const router = useRouter();
   const [showTooltip, setShowTooltip] = useState(false);
-  const tooltipRef = useRef<HTMLDivElement>(
-    null
-  ) as React.RefObject<HTMLDivElement>;
+  const tooltipRef = useRef<HTMLDivElement>(null);
 
-  // Cierra el tooltip al hacer clic fuera
   useOutsideAlerter(tooltipRef, () => setShowTooltip(false));
 
-  // Etiquetas que se mostrarán en el tooltip (las que exceden las 2 primeras)
   const extraTags = article.tags.slice(2);
 
   return (
@@ -144,6 +140,7 @@ export default function ArticleList({
   articles,
   selectedCategory,
   selectedTag,
+  selectedSubCategory, // Agregado para filtrar por subcategoría
 }: ArticleListProps) {
   const router = useRouter();
 
@@ -156,7 +153,10 @@ export default function ArticleList({
       ? article.category === selectedCategory
       : true;
     const matchesTag = selectedTag ? article.tags.includes(selectedTag) : true;
-    return matchesCategory && matchesTag;
+    const matchesSubCategory = selectedSubCategory
+      ? article.subCategory === selectedSubCategory
+      : true;
+    return matchesCategory && matchesTag && matchesSubCategory;
   });
 
   return (
