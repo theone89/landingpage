@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import Breadcrumb from "@/app/blog/components/Breadcrumb";
-import Sidebar from "@/app/blog/components/Sidebar";
 import { fetchData } from "@/lib/fetchUtils";
 
 export default async function BlogLayout({
@@ -30,7 +29,6 @@ export default async function BlogLayout({
       <h1 className="text-3xl font-bold mb-6 text-yellow-300 pl-8">{title}</h1>
       <Breadcrumb />
       {children}
-      <Sidebar />
     </section>
   );
 }

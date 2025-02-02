@@ -1,6 +1,5 @@
 import Breadcrumb from "@/app/blog/components/Breadcrumb";
 import ArticleList from "@/app/blog/components/ArticleList";
-import Sidebar from "@/app/blog/components/Sidebar";
 import { fetchData } from "@/lib/fetchUtils";
 import { Article } from "../../types/article";
 
@@ -42,9 +41,6 @@ export default async function CategoryPage({
             articles={filteredArticles}
             selectedCategory={category}
           />
-        </div>
-        <div className="md:w-1/3 mt-8 md:mt-0">
-          <Sidebar />
         </div>
       </div>
     );

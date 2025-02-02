@@ -1,6 +1,5 @@
 import React from "react";
 import ArticleList from "./components/ArticleList";
-import Sidebar from "./components/Sidebar";
 import { Article } from "./types/article";
 import { fetchData } from "../../lib/fetchUtils"; // Importa la función de utilidad
 import Breadcrumb from "./components/Breadcrumb";
@@ -19,9 +18,6 @@ export default async function Blog() {
           </h1>
           <Breadcrumb />
           <ArticleList articles={articles} />
-        </div>
-        <div className="md:w-1/3 mt-8 md:mt-0">
-          <Sidebar />
         </div>
       </div>
     );
