@@ -40,6 +40,7 @@ export default function Navbar() {
 
   const navItems: NavItem[] = [
     { name: "Inicio", path: "/" },
+    { name: "Blog", path: "/blog" },
     { name: "Servicios", section: "servicios" },
     { name: "Equipo", section: "equipo" },
     { name: "Sucursales", section: "sucursales" },
@@ -114,7 +115,7 @@ export default function Navbar() {
     pathname === "/register" ||
     pathname === "/recuperar-contrasena"
       ? "text-yellow-300 hover:text-zaffre-900 "
-      : "text-yellow-300 hover:text-grape-500 ";
+      : "text-yellow-300 hover:text-zaffre-800 ";
 
   const getLinkHref = (item: NavItem): string => {
     if ("path" in item) {
