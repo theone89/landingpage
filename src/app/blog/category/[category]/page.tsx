@@ -18,17 +18,9 @@ export default async function CategoryPage({
   try {
     const articles: Article[] = await fetchData("/api/blog/articles");
 
-    console.log(
-      "Categorías disponibles:",
-      articles.map((a) => a.category)
-    );
-    console.log("Buscando categoría:", category);
-
     const filteredArticles = articles.filter(
       (article) => article.category?.toLowerCase().trim() === category
     );
-
-    console.log("Artículos filtrados:", filteredArticles);
 
     return (
       <div className="flex flex-col md:flex-row relative">

@@ -16,20 +16,11 @@ export default async function SubCategoryPage({
   const subcategory = params.subcategory.toLowerCase().trim();
 
   try {
-    // Obtener artículos desde el servidor
     const articles: Article[] = await fetchData("/api/blog/articles");
 
-    console.log("Subcategorías disponibles:", [
-      ...new Set(articles.map((a) => a.subCategory)), // Subcategorías únicas
-    ]);
-    console.log("Buscando subcategoría:", subcategory);
-
-    // Filtrar artículos por subcategoría
     const filteredArticles = articles.filter(
       (article) => article.subCategory?.toLowerCase().trim() === subcategory
     );
-
-    console.log("Artículos filtrados:", filteredArticles);
 
     if (filteredArticles.length === 0) {
       return (
