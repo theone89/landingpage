@@ -11,7 +11,7 @@ export default function Breadcrumb() {
     <nav className="text-sm mb-6 pl-8">
       <ol className="list-none p-0 inline-flex">
         <li className="flex items-center">
-          <Link href="/blog" className="text-yellow-300 hover:text-gray-700">
+          <Link href="/" className="text-yellow-300 hover:text-grape-900">
             Home
           </Link>
           {pathSegments.length > 0 && <span className="mx-2">/</span>}
@@ -29,7 +29,7 @@ export default function Breadcrumb() {
               ) : (
                 <Link
                   href={href}
-                  className="text-yellow-300 hover:text-gray-700"
+                  className="text-yellow-300 hover:text-grape-900"
                 >
                   {decodeURIComponent(segment)}
                 </Link>
