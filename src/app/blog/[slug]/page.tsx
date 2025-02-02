@@ -17,7 +17,7 @@ export default async function Page({
     if (!article) return notFound();
 
     return (
-      <div className="max-w-3xl ml-8 p-6 relative bg-white my-24 rounded-lg">
+      <div className="max-w-3xl ml-8 p-6 relative bg-white rounded-lg">
         <h1 className="text-3xl font-bold mb-4">{article.title}</h1>
         <p className="text-gray-500 text-sm">
           {article.date} • {article.readingTime}

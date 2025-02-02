@@ -6,7 +6,7 @@ export default function BlogLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section>
+    <section className="relative py-24">
       {children}
       <Sidebar />
     </section>
