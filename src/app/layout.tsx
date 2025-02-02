@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://strongfreecode.com",
   },
-  metadataBase: new URL(process.env.lOCAL_URL || "http://localhost:3000"),
+  metadataBase: new URL(process.env.PRODUTION_URL || "http://localhost:3000"),
   title: "StrongFreeCode | Desarrollo, Programación, Seo y Asistencia IT",
   icons: {
     icon: "/favicon.svg",
