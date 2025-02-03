@@ -6,14 +6,16 @@ import { Article } from "../../types/article";
 export default async function CategoryPage({
   params,
 }: {
-  params?: { category?: string };
+  params: Promise<{ category?: string }>;
 }) {
-  if (!params || !params.category) {
+  const resolvedParams = await params; // Espera a que params se resuelva
+
+  if (!resolvedParams?.category) {
     console.error("Error: params.category es undefined");
     return <div>Error: No se encontró la categoría.</div>;
   }
 
-  const category = params.category.toLowerCase().trim();
+  const category = resolvedParams.category.toLowerCase().trim();
 
   try {
     const articles: Article[] = await fetchData("/api/blog/articles");
@@ -24,7 +26,7 @@ export default async function CategoryPage({
 
     return (
       <div className="flex flex-col md:flex-row relative">
-        <div className=" pr-4">
+        <div className="pr-4">
           <h1 className="text-3xl font-bold mb-6 text-yellow-300 pl-8">
             Artículos en la categoría {category}
           </h1>
