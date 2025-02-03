@@ -6,17 +6,22 @@ import { Article } from "@/app/blog/types/article";
 export default async function SubCategoryPage({
   params,
 }: {
-  params: { category: string; subcategory: string };
+  // Puedes tipar params como Promise o simplemente usar await
+  params:
+    | { category: string; subcategory: string }
+    | Promise<{ category: string; subcategory: string }>;
 }) {
-  const resolvedParamsCategory = await params;
+  // Espera a que se resuelva params y luego desestructura
+  const { subcategory } = await params;
 
-  if (!resolvedParamsCategory?.subcategory) {
+  if (!subcategory) {
     console.error("Error: params.subcategory es undefined o vacío.");
     return <div>Error: No se encontró la subcategoría.</div>;
   }
 
-  const subcategory = decodeURIComponent(
-    resolvedParamsCategory.subcategory.toLowerCase().trim()
+  // Usa la subcategoría ya resuelta
+  const normalizedSubcategory = decodeURIComponent(
+    subcategory.toLowerCase().trim()
   );
 
   try {
@@ -24,19 +29,20 @@ export default async function SubCategoryPage({
     const articles: Article[] = await fetchData("/api/blog/articles");
 
     const filteredArticles = articles.filter(
-      (article) => article.subCategory?.toLowerCase().trim() === subcategory
+      (article) =>
+        article.subCategory?.toLowerCase().trim() === normalizedSubcategory
     );
 
     return (
       <div className="flex flex-col md:flex-row relative">
         <div className="">
           <h1 className="text-3xl font-bold mb-6 text-yellow-300 pl-8">
-            Artículos en la subcategoría {subcategory}
+            Artículos en la subcategoría {normalizedSubcategory}
           </h1>
           <Breadcrumb />
           <ArticleList
             articles={filteredArticles}
-            selectedSubCategory={subcategory}
+            selectedSubCategory={normalizedSubcategory}
           />
         </div>
       </div>
