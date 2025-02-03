@@ -6,12 +6,8 @@ import { Article } from "@/app/blog/types/article";
 export default async function SubCategoryPage({
   params,
 }: {
-  // Puedes tipar params como Promise o simplemente usar await
-  params:
-    | { category: string; subcategory: string }
-    | Promise<{ category: string; subcategory: string }>;
+  params: Promise<{ category: string; subcategory: string }>;
 }) {
-  // Espera a que se resuelva params y luego desestructura
   const { subcategory } = await params;
 
   if (!subcategory) {
@@ -19,13 +15,11 @@ export default async function SubCategoryPage({
     return <div>Error: No se encontró la subcategoría.</div>;
   }
 
-  // Usa la subcategoría ya resuelta
   const normalizedSubcategory = decodeURIComponent(
     subcategory.toLowerCase().trim()
   );
 
   try {
-    // Obtiene los artículos antes de renderizar el componente
     const articles: Article[] = await fetchData("/api/blog/articles");
 
     const filteredArticles = articles.filter(
