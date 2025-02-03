@@ -2,8 +2,8 @@
 export async function fetchData(url: string) {
   const apiUrl =
     process.env.NODE_ENV === "production"
-      ? process.env.PRODUTION_API_URL
-      : process.env.lOCAL_API_URL;
+      ? "https://strongfreecode.com"
+      : "http://127.0.0.1:3000";
   try {
     const res = await fetch(`${apiUrl}${url}`);
 
