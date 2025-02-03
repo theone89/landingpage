@@ -1,21 +1,22 @@
-import Breadcrumb from "@/app/blog/components/Breadcrumb";
-import ArticleList from "@/app/blog/components/ArticleList";
 import { fetchData } from "@/lib/fetchUtils";
 import { Article } from "../../types/article";
+import Breadcrumb from "../../components/Breadcrumb";
+import ArticleList from "../../components/ArticleList";
 
-export default async function CategoryPage({
+export default async function Page({
   params,
 }: {
-  params: Promise<{ category?: string }>;
+  params: Promise<{ slug?: string[] }>;
 }) {
-  const resolvedParams = await params; // Espera a que params se resuelva
+  const resolvedParams = (await params).slug;
+  //const resolvedParams = await params; // Espera a que params se resuelva
 
-  if (!resolvedParams?.category) {
+  if (!resolvedParams?.[0]) {
     console.error("Error: params.category es undefined");
     return <div>Error: No se encontró la categoría.</div>;
   }
 
-  const category = resolvedParams.category.toLowerCase().trim();
+  const category = resolvedParams?.[0].toLowerCase().trim();
 
   try {
     const articles: Article[] = await fetchData("/api/blog/articles");
