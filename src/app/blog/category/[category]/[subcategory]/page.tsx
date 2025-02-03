@@ -6,9 +6,10 @@ import { Article } from "@/app/blog/types/article";
 export default async function SubCategoryPage({
   params,
 }: {
-  params: Promise<{ category: string; subcategory: string }>;
+  params: { category: string; subcategory: string };
 }) {
-  const { subcategory } = await params;
+  // Elimina el await y accede directamente a los parámetros
+  const { subcategory } = params;
 
   if (!subcategory) {
     console.error("Error: params.subcategory es undefined o vacío.");
