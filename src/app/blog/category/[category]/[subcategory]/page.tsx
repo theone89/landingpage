@@ -8,17 +8,12 @@ export default async function SubCategoryPage({
 }: {
   params: { category: string; subcategory: string };
 }) {
-  // Elimina el await y accede directamente a los parámetros
   const { subcategory } = params;
 
-  if (!subcategory) {
-    console.error("Error: params.subcategory es undefined o vacío.");
-    return <div>Error: No se encontró la subcategoría.</div>;
-  }
-
-  const normalizedSubcategory = decodeURIComponent(
-    subcategory.toLowerCase().trim()
-  );
+  const normalizedSubcategory = decodeURIComponent(subcategory)
+    .toLowerCase()
+    .trim()
+    .replace(/-/g, " ");
 
   try {
     const articles: Article[] = await fetchData("/api/blog/articles");
@@ -32,18 +27,19 @@ export default async function SubCategoryPage({
       <div className="flex flex-col md:flex-row relative">
         <div className="">
           <h1 className="text-3xl font-bold mb-6 text-yellow-300 pl-8">
-            Artículos en la subcategoría {normalizedSubcategory}
+            Artículos en {normalizedSubcategory}
           </h1>
           <Breadcrumb />
-          <ArticleList
-            articles={filteredArticles}
-            selectedSubCategory={normalizedSubcategory}
-          />
+          {filteredArticles.length > 0 ? (
+            <ArticleList articles={filteredArticles} />
+          ) : (
+            <div className="text-red-400">No se encontraron artículos</div>
+          )}
         </div>
       </div>
     );
   } catch (error) {
     console.error("Error al obtener los artículos", error);
-    return <div>Error al cargar los artículos.</div>;
+    return <div className="text-red-500">Error al cargar los artículos</div>;
   }
 }
