@@ -26,7 +26,7 @@ export default async function CategoryPage({
 
     return (
       <div className="flex flex-col md:flex-row relative">
-        <div className="pr-4">
+        <div className="">
           <h1 className="text-3xl font-bold mb-6 text-yellow-300 pl-8">
             Artículos en la categoría {category}
           </h1>

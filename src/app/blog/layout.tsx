@@ -11,10 +11,10 @@ export default async function BlogLayout({
   return (
     <section className="relative py-24 flex flex-wrap">
       {/* Artículos en la parte principal */}
-      <div className="md:w-2/3 pr-4">{children}</div>
+      <div className="md:w-2/3 ">{children}</div>
 
       {/* Aside en la parte lateral izquierda */}
-      <aside className="md:w-1/3 pl-4 mt-6 md:mt-0">
+      <aside className="md:w-1/3 w-full pl-4 mt-6 md:mt-0 hidden md:block">
         <Aside articles={articles} />
       </aside>
     </section>
