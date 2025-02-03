@@ -3,7 +3,7 @@ import { articles } from "@/app/blog/data/articles";
 
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: { slug: string }; searchParams: URLSearchParams }
 ) {
   const article = articles.find((article) => article.slug === params.slug);
 
