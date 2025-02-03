@@ -6,7 +6,7 @@ export async function fetchData(url: string) {
       : "http://127.0.0.1:3000";
   try {
     const res = await fetch(`${apiUrl}${url}`);
-
+    console.log(apiUrl + url);
     if (!res.ok) {
       throw new Error(`Error en la solicitud: ${res.statusText}`);
     }
