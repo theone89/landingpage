@@ -2,7 +2,7 @@
 export async function fetchData(url: string) {
   const apiUrl =
     process.env.NODE_ENV === "production"
-      ? process.env.NEXT_PUBLIC_SITE_URL
+      ? "http://localhost:3000"
       : "http://127.0.0.1:3000";
   try {
     const res = await fetch(`${apiUrl}${url}`);
