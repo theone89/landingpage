@@ -4,15 +4,19 @@ import { supabase } from "@/lib/supabase";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug?: string[] }>;
+}) {
+  const resolvedParams = (await params).slug;
 
   try {
     // Obtener el artículo desde Supabase
     const { data: article, error } = await supabase
       .from("articles")
       .select("*")
-      .eq("slug", slug)
+      .eq("slug", resolvedParams)
       .single();
 
     if (error || !article) return notFound();
