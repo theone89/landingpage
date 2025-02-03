@@ -2,7 +2,7 @@
 export async function fetchData(url: string) {
   const apiUrl =
     process.env.NODE_ENV === "production"
-      ? "http://strongfreecode.com"
+      ? "https://landingpage-franklins-projects-005854a5.vercel.app/"
       : "http://127.0.0.1:3000";
   try {
     const res = await fetch(`${apiUrl}${url}`);
