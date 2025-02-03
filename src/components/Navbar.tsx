@@ -51,6 +51,7 @@ const NavItem = ({
   item,
   pathname,
   closeMenu,
+  className,
 }: {
   item: NavItemType;
   pathname: string;
@@ -89,7 +90,9 @@ const NavItem = ({
         }
         closeMenu?.();
       }}
-      className={`${linkColor} hover:border-b-2 hover:border-zaffre-900 transition-all duration-300`}
+      className={`${linkColor} hover:border-b-2 hover:border-zaffre-900 transition-all duration-300 ${
+        className ?? ""
+      }`}
     >
       {item.name}
     </Link>
@@ -185,7 +188,7 @@ const MobileNav = ({
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 bg-opacity-90 backdrop-blur-md shadow-md"
+            className="absolute top-full left-0 right-0 bg-opacity-90 backdrop-blur-md shadow-md flex flex-col"
           >
             {NavItems.map((item) => (
               <NavItem
