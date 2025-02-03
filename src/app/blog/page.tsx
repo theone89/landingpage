@@ -1,12 +1,18 @@
 import React from "react";
 import ArticleList from "./components/ArticleList";
 import { Article } from "./types/article";
-import { fetchData } from "../../lib/fetchUtils";
 import Breadcrumb from "./components/Breadcrumb";
+import { supabase } from "@/lib/supabase";
 
 export default async function Blog() {
   try {
-    const articles: Article[] = await fetchData("/api/blog/articles");
+    const { data, error } = await supabase.from("articles").select("*");
+
+    if (error) {
+      throw error;
+    }
+
+    const articles: Article[] = data || [];
 
     return (
       <div className="">

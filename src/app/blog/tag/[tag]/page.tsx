@@ -1,7 +1,7 @@
 import Breadcrumb from "@/app/blog/components/Breadcrumb";
 import ArticleList from "@/app/blog/components/ArticleList";
-import { fetchData } from "@/lib/fetchUtils";
 import { Article } from "../../types/article";
+import { supabase } from "@/lib/supabase";
 
 // Este es un componente asíncrono en Next.js 14
 export default async function TagPage({
@@ -12,7 +12,14 @@ export default async function TagPage({
   const tag = (await params).tag;
   try {
     // Usamos la función de utilidad para obtener los artículos
-    const articles: Article[] = await fetchData("/api/blog/articles");
+
+    const { data, error } = await supabase.from("articles").select("*");
+
+    if (error) {
+      throw error;
+    }
+
+    const articles: Article[] = data || [];
 
     // Filtramos los artículos por la etiqueta seleccionada
     const filteredArticles = articles.filter((article) =>

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Breadcrumb from "@/app/blog/components/Breadcrumb";
-import { fetchData } from "@/lib/fetchUtils";
+import { supabase } from "@/lib/supabase";
+import { Article } from "../types/article";
 
 export default async function BlogLayout({
   children,
@@ -12,7 +13,14 @@ export default async function BlogLayout({
   let title = "Artículos Recientes";
   const slug = (await params).slug;
   try {
-    const articles = await fetchData("/api/blog/articles");
+    const { data, error } = await supabase.from("articles").select("*");
+
+    if (error) {
+      throw error;
+    }
+
+    const articles: Article[] = data || [];
+
     const article = articles.find((a: { slug: string }) => a.slug === slug);
 
     if (!article) {

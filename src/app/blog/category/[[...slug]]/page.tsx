@@ -1,7 +1,7 @@
-import { fetchData } from "@/lib/fetchUtils";
 import { Article } from "../../types/article";
 import Breadcrumb from "../../components/Breadcrumb";
 import ArticleList from "../../components/ArticleList";
+import { supabase } from "@/lib/supabase";
 
 export default async function Page({
   params,
@@ -19,7 +19,13 @@ export default async function Page({
   const category = resolvedParams?.[0].toLowerCase().trim();
 
   try {
-    const articles: Article[] = await fetchData("/api/blog/articles");
+    const { data, error } = await supabase.from("articles").select("*");
+
+    if (error) {
+      throw error;
+    }
+
+    const articles: Article[] = data || [];
 
     const filteredArticles = articles.filter(
       (article) => article.category?.toLowerCase().trim() === category
