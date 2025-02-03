@@ -4,10 +4,12 @@ import { fetchData } from "@/lib/fetchUtils";
 import { Article } from "../../types/article";
 
 // Este es un componente asíncrono en Next.js 14
-export default async function TagPage({ params }: { params: { tag: string } }) {
-  // Esperamos el valor de los parámetros dinámicos
-  const { tag } = await params;
-
+export default async function TagPage({
+  params,
+}: {
+  params: Promise<{ tag: string }>;
+}) {
+  const tag = (await params).tag;
   try {
     // Usamos la función de utilidad para obtener los artículos
     const articles: Article[] = await fetchData("/api/blog/articles");
