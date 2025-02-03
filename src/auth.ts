@@ -25,11 +25,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile }) {
-      console.log("User:", user);
-      console.log("Account:", account);
-      console.log("Profile:", profile);
-
+    async signIn({ user, account }) {
       try {
         // Verificar si el usuario ya existe en Supabase
         const { data: existingUser, error: findError } = await supabase
