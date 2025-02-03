@@ -4,17 +4,12 @@ import { fetchData } from "@/lib/fetchUtils";
 import { Article } from "@/app/blog/types/article";
 
 // Define los tipos de parámetros esperados
-interface PageParams {
+interface Params {
   category: string;
   subcategory: string;
 }
 
-// Define las props del componente usando los tipos de Next.js
-interface PageProps {
-  params: PageParams;
-}
-
-export default async function SubCategoryPage({ params }: PageProps) {
+export default async function SubCategoryPage({ params }: { params: Params }) {
   const { subcategory } = params;
 
   const normalizedSubcategory = decodeURIComponent(subcategory)
