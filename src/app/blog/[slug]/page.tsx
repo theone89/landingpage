@@ -48,7 +48,17 @@ export default async function Page({
 
         {/* Contenido completo renderizado desde Markdown */}
         <div className="prose prose-lg text-gray-800 leading-relaxed">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            className={`prose prose-lg max-w-none text-gray-900 leading-relaxed space-y-4
+    dark:prose-dark
+    [&_a]:text-blue-600
+    [&_a:hover]:text-blue-700
+    [&_a:focus]:text-blue-700
+    [&_a]:transition-colors
+    dark:[&_a]:text-blue-400
+    dark:[&_a:hover]:text-blue-300`}
+          >
             {article.content}
           </ReactMarkdown>
         </div>
