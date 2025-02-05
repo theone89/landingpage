@@ -188,7 +188,7 @@ const MobileNav = ({
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 bg-opacity-90 backdrop-blur-md shadow-md flex flex-col"
+            className="absolute top-full left-0 right-0 bg-opacity-90 bg-zaffre-100 rounded-b-lg backdrop-blur-md shadow-md flex flex-col"
           >
             {NavItems.map((item) => (
               <NavItem
