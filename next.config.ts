@@ -33,11 +33,11 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "avatars.githubusercontent.com",
+        hostname: "theruntime.com",
       },
       {
         protocol: "https",
-        hostname: "avatars.githubusercontent.com",
+        hostname: "example.com",
       },
     ],
   },

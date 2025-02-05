@@ -23,8 +23,8 @@ const Aside: React.FC<AsideProps> = ({ articles }) => {
       if (!categoriesMap[article.category]) {
         categoriesMap[article.category] = new Set();
       }
-      if (article.subCategory) {
-        categoriesMap[article.category].add(article.subCategory);
+      if (article.sub_category) {
+        categoriesMap[article.category].add(article.sub_category);
       }
     }
   });
@@ -87,15 +87,15 @@ const Aside: React.FC<AsideProps> = ({ articles }) => {
                 </h3>
                 {subCategories.length > 0 && (
                   <ul className="ml-4 mt-1 flex flex-wrap gap-2">
-                    {subCategories.map((subCategory) => (
-                      <li key={subCategory}>
+                    {subCategories.map((sub_category) => (
+                      <li key={sub_category}>
                         <Link
                           href={`/blog/category/${encodeURIComponent(
                             category
-                          )}/${encodeURIComponent(subCategory)}`}
+                          )}/${encodeURIComponent(sub_category)}`}
                           className="bg-green-200 text-green-800 px-2 py-1 rounded-full text-xs hover:underline"
                         >
-                          {subCategory}
+                          {sub_category}
                         </Link>
                       </li>
                     ))}

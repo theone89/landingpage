@@ -1,33 +1,27 @@
 export type Article = {
-  id: number;
   title: string;
   slug: string;
   excerpt: string;
   content: string;
-  date: string;
-  timestamp: string;
-  lastUpdated: string;
+  date: Date;
+  timestamp: Date;
+  last_updated: Date;
   thumbnail: string;
   image: string;
-  readingTime: string;
+  reading_time: number;
   category: string;
-  subCategory: string;
+  sub_category: string;
   tags: string[];
   difficulty: "beginner" | "intermediate" | "advanced";
-  author: {
-    name: string;
-    avatar: string;
-  };
-  seo: {
-    metaTitle: string;
-    metaDescription: string;
-  };
-  status: "published" | "draft";
-  isFeatured: boolean;
-  featuredOrder?: number;
-  engagement: {
-    views: number;
-    likes: number;
-    commentsCount: number;
-  };
+  author_name: string;
+  author_avatar: string;
+  seo_meta_title: string;
+  seo_meta_description: string;
+  seo_meta_keywords: string;
+  status: "draft" | "published" | "archived";
+  is_featured: boolean;
+  featured_order: number;
+  views: number;
+  likes: number;
+  comments_count: number;
 };

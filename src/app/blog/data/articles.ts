@@ -16,7 +16,7 @@ export const article: Article[] = [
     image: "/assets/images/ia/ia_negocio.png",
     readingTime: "6 min",
     category: "emprendimiento",
-    subCategory: "tecnología",
+    sub_category: "tecnología",
     tags: ["IA", "emprendimiento", "negocios digitales"],
     difficulty: "beginner",
     author: {
@@ -53,7 +53,7 @@ export const article: Article[] = [
     image: "/assets/images/o2o/o2o_strategy.png",
     readingTime: "7 min",
     category: "marketing",
-    subCategory: "O2O",
+    sub_category: "O2O",
     tags: ["O2O", "marketing digital", "ventas físicas"],
     difficulty: "intermediate",
     author: {
@@ -90,7 +90,7 @@ export const article: Article[] = [
     image: "/assets/images/marketing/tendencias_2025.png",
     readingTime: "8 min",
     category: "marketing",
-    subCategory: "tendencias",
+    sub_category: "tendencias",
     tags: ["SEO", "redes sociales", "publicidad digital"],
     difficulty: "intermediate",
     author: {
@@ -126,7 +126,7 @@ export const article: Article[] = [
     image: "/assets/images/startups/growth_hacking.png",
     readingTime: "6 min",
     category: "emprendimiento",
-    subCategory: "growth hacking",
+    sub_category: "growth hacking",
     tags: ["growth hacking", "startups", "retención de clientes"],
     difficulty: "advanced",
     author: {
@@ -164,7 +164,7 @@ export const article: Article[] = [
     image: "/assets/images/monetizacion/contenido_pasivo.png",
     readingTime: "7 min",
     category: "marketing",
-    subCategory: "monetización",
+    sub_category: "monetización",
     tags: ["ingresos pasivos", "creadores de contenido", "monetización"],
     difficulty: "beginner",
     author: {
