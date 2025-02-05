@@ -78,7 +78,7 @@ function ArticleCard({ article, onClick }: ArticleCardProps) {
       <div className="p-6 flex-1 flex flex-col">
         <div className="flex justify-between items-center text-xs text-gray-500 mb-2">
           <span>{article.date}</span>
-          <span>{article.readingTime}</span>
+          <span>{article.reading_time}</span>
         </div>
         <h2 className="text-md font-semibold text-gray-900 mb-2 hover:text-yellow-500 transition-colors duration-300">
           {article.title}

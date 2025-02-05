@@ -78,7 +78,7 @@ export default async function Page({
         </h1>
         <div className="flex items-center text-gray-500 text-sm mb-4">
           <p>
-            {article.date} • {article.readingTime}
+            {article.date} • {article.reading_time}
           </p>
         </div>
 
