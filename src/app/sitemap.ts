@@ -24,6 +24,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       images: ["https://strongfreecode.com/og-sfc.png"],
     },
     {
+      url: "https://strongfreecode.com/blog",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
       url: "https://strongfreecode.com/politica-privacidad",
       lastModified: new Date(),
       changeFrequency: "monthly",
