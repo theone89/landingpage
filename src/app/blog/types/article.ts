@@ -6,7 +6,7 @@ export type Article = {
   content: string;
   date: string;
   timestamp: string;
-  last_updatedd: string;
+  last_updated: string;
   thumbnail: string;
   image: string;
   reading_time: string;
