@@ -1,7 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import type { MetadataRoute } from "next";
 import { notFound } from "next/navigation";
-import { Article } from "./blog/types/article";
+import { Article } from "./types/article";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { data: articles, error } = await supabase.from("articles").select("*");
@@ -15,37 +15,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Función sencilla para reemplazar el carácter "&" por "&amp;"
   const fix = (str: string) => str?.replace(/&/g, "&amp;");
+
   return [
     {
-      url: "https://strongfreecode.com",
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 1,
+      url: fix(`${process.env.NEXTAUTH_URL}`),
+      lastModified: fix("2021-01-01"),
+      changeFrequency: "weekly" as const,
+      priority: 0.5,
       images: ["https://strongfreecode.com/og-sfc.png"],
-    },
-    {
-      url: "https://strongfreecode.com/politica-privacidad",
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: "https://strongfreecode.com/terminos-condiciones",
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: "https://strongfreecode.com/contacto-patrocinio",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.5,
-    },
-    {
-      url: "https://strongfreecode.com/login",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.5,
     },
     ...publishedArticles.map((article: Article) => ({
       url: fix(`${process.env.NEXTAUTH_URL}/blog/${article.slug}`),
