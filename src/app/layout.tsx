@@ -19,7 +19,11 @@ export const metadata: Metadata = {
     canonical: "https://strongfreecode.com",
   },
   metadataBase: new URL(process.env.PRODUTION_URL || "http://localhost:3000"),
-  title: "StrongFreeCode | Desarrollo, Programación, Seo y Asistencia IT",
+  title: {
+    template:
+      "%s | StrongFreeCode | Desarrollo, Programación, Seo y Asistencia IT",
+    default: "StrongFreeCode | Desarrollo, Programación, Seo y Asistencia IT", // a default is required when creating a template
+  },
   icons: {
     icon: "/favicon.svg",
   },

@@ -1,7 +1,14 @@
+import { Metadata } from "next";
 import Aside from "./components/Aside";
 import { Article } from "./types/article";
 import { supabase } from "@/lib/supabase";
 
+export const metadata: Metadata = {
+  title: {
+    template: "%s | Blog | StrongFreeCode",
+    default: "Blog | StrongFreeCode",
+  },
+};
 export default async function BlogLayout({
   children,
 }: {
