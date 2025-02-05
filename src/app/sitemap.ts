@@ -49,7 +49,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     ...publishedArticles.map((article: Article) => ({
       url: fix(`${process.env.NEXTAUTH_URL}/blog/${article.slug}`),
-      lastModified: fix(article.last_update),
+      lastModified: fix(article.last_updated),
       changeFrequency: "weekly" as const,
       priority: 0.7,
       images: article.image ? [fix(article.image)] : [],
