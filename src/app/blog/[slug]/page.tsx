@@ -22,8 +22,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .single();
   if (error || !article) return notFound();
   return {
-    title: article.title,
-    description: article.excerpt,
+    title: article.seo_meta_title,
+    description: article.seo_meta_description,
+    keywords: article.seo_meta_keywords,
     openGraph: {
       title: article.title,
       description: article.excerpt,
@@ -77,14 +78,14 @@ export default async function Page({
         </h1>
         <div className="flex items-center text-gray-500 text-sm mb-4">
           <p>
-            {article.date} • {article.readingTime}
+            {article.date} • {article.reading_time}
           </p>
         </div>
 
         {/* Imagen destacada */}
         <div className="relative w-full h-72 mb-6">
           <Image
-            src={article.image}
+            src={article.image ? article.image : "/SFC logo.png"}
             alt={article.title}
             fill
             className="object-cover rounded-lg"

@@ -11,7 +11,7 @@ interface ArticleListProps {
   articles: Article[];
   selectedCategory?: string;
   selectedTag?: string;
-  selectedSubCategory?: string; // Agregado para filtrar por subcategoría
+  selectedsub_category?: string; // Agregado para filtrar por subcategoría
 }
 
 const containerVariants = {
@@ -78,7 +78,7 @@ function ArticleCard({ article, onClick }: ArticleCardProps) {
       <div className="p-6 flex-1 flex flex-col">
         <div className="flex justify-between items-center text-xs text-gray-500 mb-2">
           <span>{article.date}</span>
-          <span>{article.readingTime}</span>
+          <span>{article.reading_time}</span>
         </div>
         <h2 className="text-md font-semibold text-gray-900 mb-2 hover:text-yellow-500 transition-colors duration-300">
           {article.title}
@@ -140,7 +140,7 @@ export default function ArticleList({
   articles,
   selectedCategory,
   selectedTag,
-  selectedSubCategory, // Agregado para filtrar por subcategoría
+  selectedsub_category, // Agregado para filtrar por subcategoría
 }: ArticleListProps) {
   const router = useRouter();
 
@@ -153,10 +153,10 @@ export default function ArticleList({
       ? article.category === selectedCategory
       : true;
     const matchesTag = selectedTag ? article.tags.includes(selectedTag) : true;
-    const matchesSubCategory = selectedSubCategory
-      ? article.subCategory === selectedSubCategory
+    const matchessub_category = selectedsub_category
+      ? article.sub_category === selectedsub_category
       : true;
-    return matchesCategory && matchesTag && matchesSubCategory;
+    return matchesCategory && matchesTag && matchessub_category;
   });
 
   return (
