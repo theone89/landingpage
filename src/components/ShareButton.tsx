@@ -12,7 +12,7 @@ import {
 const ShareButton = ({ slug }: { slug: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const baseUrl = process.env.NEXT_PUBLIC_URL;
-  const articleUrl = `${baseUrl}/${slug}`;
+  const articleUrl = `${baseUrl}/blog/${slug}`;
 
   const socialNetworks = [
     {
