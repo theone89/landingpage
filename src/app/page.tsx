@@ -13,16 +13,18 @@ import Team from "@/components/Team";
 
 export default function Home() {
   return (
-    <main className="min-h-screen  ">
+    <>
       <Header />
-      <Services />
-      <Team />
-      {/*  <Mission />
+      <main className="min-h-screen  ">
+        <Services />
+        <Team />
+        {/*  <Mission />
       <Branches />
       <News />
       <Timeline />` */}
-      <Contact />
-      <PartnersSection partners={partners} />
-    </main>
+        <Contact />
+        <PartnersSection partners={partners} />
+      </main>
+    </>
   );
 }
