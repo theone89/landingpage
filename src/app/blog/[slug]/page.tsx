@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 import type { Metadata } from "next";
+import ShareButton from "@/components/ShareButton";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -76,12 +77,14 @@ export default async function Page({
         <h1 className="text-4xl font-extrabold text-gray-900 mb-4">
           {article.title}
         </h1>
-        <div className="flex items-center text-gray-500 text-sm mb-4">
+        <div className="flex items-center justify-between text-gray-500 text-sm mb-4">
           <p>
             {article.date} • {article.reading_time}
           </p>
-        </div>
-
+          <div className="">
+            <ShareButton slug={article.slug} />
+          </div>
+        </div>{" "}
         {/* Imagen destacada */}
         <div className="relative w-full h-72 mb-6">
           <Image
@@ -91,10 +94,8 @@ export default async function Page({
             className="object-cover rounded-lg"
           />
         </div>
-
         {/* Extracto */}
         <p className="text-lg text-gray-700 italic mb-4">{article.excerpt}</p>
-
         {/* Contenido completo renderizado desde Markdown */}
         <div className="prose prose-lg text-gray-800 leading-relaxed">
           <ReactMarkdown
@@ -111,7 +112,6 @@ export default async function Page({
             {article.content}
           </ReactMarkdown>
         </div>
-
         {/* Tags */}
         <div className="mt-6 flex flex-wrap gap-2">
           {article.tags.map((tag: string) => (
@@ -123,7 +123,6 @@ export default async function Page({
             </span>
           ))}
         </div>
-
         {/* Autor */}
         <div className="mt-10 flex items-center gap-4 border-t pt-4">
           <Image
