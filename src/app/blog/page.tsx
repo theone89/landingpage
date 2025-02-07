@@ -15,8 +15,8 @@ export default async function Blog() {
     const articles: Article[] = data || [];
 
     return (
-      <div className="">
-        <div className="">
+      <div className="relative">
+        <div className="relative">
           <h1 className="text-3xl font-bold mb-6 text-yellow-300 pl-8">
             Artículos Recientes
           </h1>

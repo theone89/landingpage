@@ -124,6 +124,7 @@ function ArticleCard({ article, onClick }: ArticleCardProps) {
           )}
         </div>
         <p className="text-xs text-gray-600 mb-4 flex-1">{article.excerpt}</p>
+        <div className="flex justify-between items-start text-center"></div>
         <Link
           href={`/blog/${article.slug}`}
           className="text-sm text-blue-600 font-medium hover:text-blue-800 transition-colors"

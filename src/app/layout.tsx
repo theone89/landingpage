@@ -83,12 +83,12 @@ export default function RootLayout({
       <body className={`${inter.className} `}>
         <ClientLoadingWrapper>
           <SessionProvider>
+            <Background />
             <Navbar />
             {children}
             <Chatbot />
             <ScrollToTop />
             <Footer />
-            <Background />
           </SessionProvider>
         </ClientLoadingWrapper>
       </body>
